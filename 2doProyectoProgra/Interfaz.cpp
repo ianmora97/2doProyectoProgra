@@ -86,7 +86,6 @@ void Interfaz::imprime(){
 	gotoxy(71, 20); cout << char(186);
 	gotoxy(71, 21); cout << char(186);
 }
-
 int Interfaz::validar(){
 	int opc;
 	bool c = true;

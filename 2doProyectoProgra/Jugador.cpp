@@ -36,13 +36,11 @@ string Jugador::sacarPuntaje() {
 	if (archivo.is_open()) {
 		while (!archivo.eof()) {
 			getline(archivo,texto);
-			cout << texto << endl;
 		}
 	}
 	else {
 		color(12); cout << "Error al abrir el archivo!" << endl; color(12);
 	}
+	return texto;
 }
-Jugador::~Jugador()
-{
-}
+Jugador::~Jugador(){}

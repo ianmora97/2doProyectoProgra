@@ -78,9 +78,25 @@ int Herramientas::charXColumna(char col) {
 	else if (col == 'O' || col == 'o') {num = 14;}
 	return num;
 }
+void Herramientas::turnoJugador(int t) {
+	color(15);
+	cout << "\t\t\t\t" << char(201);
+	for (int i = 0; i < 30; i++) { cout << char(205); }
+	cout << char(187);
+	cout << "\n\t\t\t\t" << char(186);
+	color(11);
+	cout << "        Jugador " << t << "             ";
+	color(15);
+	cout << char(186) << endl;
+	color(15);
+	cout << "\t\t\t\t" << char(200);
+	for (int i = 0; i < 30; i++) { cout << char(205); }
+	cout << char(188) << endl;
+}
 void Herramientas::leerFichero(string nombre) {
 	string texto;
 	ifstream archivo;
+	nombre = (nombre + ".txt");
 	archivo.open(nombre.c_str(), ios::in);
 	if (archivo.is_open()) {
 		while (!archivo.eof()) {
@@ -93,21 +109,9 @@ void Herramientas::leerFichero(string nombre) {
 	}
 	archivo.close();
 }
-void Herramientas::escribirFichero(string nombre) {
-	ofstream archivo;
-	string texto;
-	archivo.open(nombre.c_str() , ios::out);
-	if (archivo.is_open()) {
-		getline(cin,texto);
-		archivo << texto;
-	}
-	else {
-		cout << "Error al abrir el archivo!" << endl;
-	}
-	archivo.close();
-}
 void Herramientas::escribirFichero(string nombre, string texto) {
 	ofstream archivo;
+	nombre = (nombre + ".txt");
 	archivo.open(nombre.c_str(), ios::out);
 	if (archivo.is_open()) {
 		archivo << texto;
@@ -119,6 +123,7 @@ void Herramientas::escribirFichero(string nombre, string texto) {
 }
 void Herramientas::appendFichero(string nombre,string texto) {
 	ofstream archivo;
+	nombre = (nombre + ".txt");
 	archivo.open(nombre.c_str(), ios::app);
 	if (archivo.is_open()) {
 		archivo << texto;

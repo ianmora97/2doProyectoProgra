@@ -1,10 +1,10 @@
 #include "Control.h"
 Control::Control(){}
 void Control::opciones() {
+	color(15);
 	Interfaz *interfaz = new Interfaz;
 	ListaFichas *bolsaFichas = new ListaFichas;
-	Jugador *jugador = new Jugador("Ian");
-	cout << jugador->toString() << endl;
+	
 
 }
 Control::~Control(){}

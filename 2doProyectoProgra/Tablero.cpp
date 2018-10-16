@@ -37,6 +37,7 @@ Tablero::Tablero(){
 				if (j == 6 || j == 8) {tablero[i][j] = " 2L ";}
 				else {tablero[i][j] = "    ";}
 			}
+
 			else if (i == 3 || i == 11) {
 				if (j == 0 || j == 14 || j == 7) {tablero[i][j] = " 2L ";}
 				else {tablero[i][j] = "    ";}
@@ -72,69 +73,149 @@ void Tablero::insertarFicha(int f,char c,string letra) {
 }
 void Tablero::imprimeTablero(){
 	cout << "\n";
-	color(119);
-	for (int e = 0; e < 90; e++) {cout << " ";}
-	color(127);	cout << "\n          A    B    C    D    E    F    G    H    I    J    K    L    M    N    O         \n";
-	for (int o = 0; o < 90; o++) {cout << " ";}
+	color(15); cout << "\n     A   B   C   D   E   F   G   H   I   J   K   L   M   N   O   \n";
+	color(15); cout << "  ";
+	for (int o = 0; o < 64; o++) { color(127); cout << " "; }
 	cout << "\n";
 	for (int i = 0; i < 15; i++) { //no me pregunte como lo hice, solo lo hice
-		color(127);
-		if (i >= 9) {cout << "   " << i + 1 << "    ";}
-		else {cout << "    " << i + 1 << "    ";}
+		if (i >= 9) { color(15); cout << i + 1; color(127); cout << "  "; }
+		else { color(15); cout << " " << i + 1; color(127); cout << "  "; }
 		for (int j = 0; j < 15; j++) {
 			if ((i + j) == 14) {  
-				if ((i == 0 && j == 14) || (j == 0 && i == 14)) { color(191);cout << tablero[i][j];color(15); }//esquinas
-				else if (i == 7 && j == 7) { color(95);cout << tablero[i][j]; }//centro
-				else if ((i == 5 || j == 5) && (i == 9 || j == 9)) { color(224);cout << tablero[i][j]; }//arriba
-				else if ((i == 6 || j == 6) && (i == 8 || j == 8)) { color(223);cout << tablero[i][j]; }
-				else { color(47);cout << tablero[i][j]; }//diagonal
+				if ((i == 0 && j == 14) || (j == 0 && i == 14)) { 
+					if (tablero[i][j] == " 3P ") {color(191); cout << tablero[i][j]; }
+					else {color(243); cout << tablero[i][j];}
+				}
+				else if (i == 7 && j == 7) {
+					if (tablero[i][j] == " XX ") {color(95); cout << tablero[i][j];}
+					else {color(243); cout << tablero[i][j];}
+				}
+				else if ((i == 5 || j == 5) && (i == 9 || j == 9)) {
+					if (tablero[i][j] == " 3L ") {color(224); cout << tablero[i][j];}
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else if ((i == 6 || j == 6) && (i == 8 || j == 8)) {
+					if (tablero[i][j] == " 2L ") {color(223); cout << tablero[i][j];}
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else { 
+					if (tablero[i][j] == " 2P ") { color(47); cout << tablero[i][j]; } 
+					else { color(243); cout << tablero[i][j]; }
+				}
 			}
-			else if (i == j) { //diagonal
-				if ((i == 0) || (i == 14)) { color(191); cout << tablero[i][j]; color(15); }
-				else if (i == 7 && j == 7) { color(95); cout << tablero[i][j]; } //centro
-				else if (i == 5 || i == 9) { color(224); cout << tablero[i][j]; }
-				else if (i == 6 || i == 8) { color(223); cout << tablero[i][j]; }
-				else { color(47); cout << tablero[i][j]; }
+			else if (i == j) {
+				if ((i == 0) || (i == 14)) { 
+					if (tablero[i][j] == " 3P ") { color(191); cout << tablero[i][j]; color(15); }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else if (i == 7 && j == 7) { 
+					if (tablero[i][j] == " XX") { color(95); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				} 
+				else if (i == 5 || i == 9) { 
+					if (tablero[i][j] == " 3L ") { color(224); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else if (i == 6 || i == 8) { 
+					if (tablero[i][j] == " 2L ") { color(223); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else { 
+					if (tablero[i][j] == " 2P ") { color(47); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
 			}
 			else if (i == 0 || i == 14) {
-				if (j == 3 || j == 11) { color(223); cout << tablero[i][j]; }
-				else if (j == 7) { color(191);cout << tablero[i][j]; }
-				else { color(55);cout << tablero[i][j]; }
+				if (j == 3 || j == 11) { 
+					if (tablero[i][j] == " 2L ") { color(223); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else if (j == 7) { 
+					if (tablero[i][j] == " 3P ") { color(191); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else { 
+					if (tablero[i][j] == "    ") { color(55); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
 			}
 			else if (i == 1 || i == 13) {
-				if (j == 5 || j == 9) { color(224);cout << tablero[i][j]; }
-				else { color(55);cout << tablero[i][j]; }
+				if (j == 5 || j == 9) { 
+					if (tablero[i][j] == " 3L ") { color(224); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else {
+					if (tablero[i][j] == "    ") { color(55); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
 			}
 			else if (i == 2 || i == 12) {
-				if (j == 6 || j == 8) { color(223);cout << tablero[i][j]; }
-				else { color(55); cout << tablero[i][j]; }
+				if (j == 6 || j == 8) {
+					if (tablero[i][j] == " 2L ") { color(223); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else {
+					if (tablero[i][j] == "    ") { color(55); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
 			}
 			else if (i == 3 || i == 11) {
-				if (j == 0 || j == 14 || j == 7) { color(223); cout << tablero[i][j]; }
-				else { color(55); cout << tablero[i][j]; }
+				if (j == 0 || j == 14 || j == 7) {
+					if (tablero[i][j] == " 2L ") { color(223); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else {
+					if (tablero[i][j] == "    ") { color(55); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
 			}
 			else if (i == 5 || i == 9) {
-				if (j == 1 || j == 13) { color(224); cout << tablero[i][j]; }
-				else { color(55); cout << tablero[i][j]; }
+				if (j == 1 || j == 13) {
+					if (tablero[i][j] == " 3L ") { color(224); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else {
+					if (tablero[i][j] == "    ") { color(55); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
 			}
 			else if (i == 6 || i == 8) {
-				if (j == 2 || j == 12) { color(223); cout << tablero[i][j]; }
-				else { color(55); cout << tablero[i][j]; }
+				if (j == 2 || j == 12) {
+					if (tablero[i][j] == " 2L ") { color(223); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else {
+					if (tablero[i][j] == "    ") { color(55); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
 			}
 			else if (i == 7) {
-				if (j == 0 || j == 14) { color(191); cout << tablero[i][j]; }
-				else if (j == 3 || j == 11) { color(223); cout << tablero[i][j]; }
-				else { color(55); cout << tablero[i][j]; }
+				if (j == 0 || j == 14) {
+					if (tablero[i][j] == " 3P ") { color(191); cout << tablero[i][j]; color(15); }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else if (j == 3 || j == 11) {
+					if (tablero[i][j] == " 2L ") { color(223); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
+				else {
+					if (tablero[i][j] == "    ") { color(55); cout << tablero[i][j]; }
+					else { color(243); cout << tablero[i][j]; }
+				}
 			}
-			else {color(55); cout << tablero[i][j];	}
-			color(119); cout << " ";
+			else {
+			if (tablero[i][j] == "    ") { color(55); cout << tablero[i][j]; }
+			else { color(243); cout << tablero[i][j]; }
+			}
+			
 		}
-		cout << "      ";
-		color(119); cout << "\n";
-		for (int s = 0; s < 90; s++) { cout << " "; }
+		color(127); cout << "  ";
 		cout << "\n";
 	}
+	color(15); cout << "  ";
+	for (int o = 0; o < 64; o++) { color(127); cout << " "; }
 	color(15);
+	cout << endl;
 }
 void Tablero::imprimeScrabble() {
 	cout << "\t _______    ______    ________     _______    ______    ______     __       _______ " << endl;
