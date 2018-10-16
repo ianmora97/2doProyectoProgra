@@ -17,7 +17,31 @@ string Jugador::toString() {
 void Jugador::guardarPuntaje() {
 	string nombreArchivo;
 	nombreArchivo = (nombreJugador + "Puntaje"+".txt");
-	//seguir desde aqui
+	ofstream archivo;
+	archivo.open(nombreArchivo.c_str(), ios::out);
+	if (archivo.is_open()) {
+		archivo << "Puntaje del jugador:" << endl << getPuntaje() << endl;
+	}
+	else {
+		color(12); cout << "Error al abrir el archivo!" << endl; color(12);
+	}
+	archivo.close();
+}
+string Jugador::sacarPuntaje() {
+	string nombreArchivo;
+	string texto;
+	nombreArchivo = (nombreJugador + "Puntaje" + ".txt");
+	ifstream archivo;
+	archivo.open(nombreArchivo.c_str(), ios::in);
+	if (archivo.is_open()) {
+		while (!archivo.eof()) {
+			getline(archivo,texto);
+			cout << texto << endl;
+		}
+	}
+	else {
+		color(12); cout << "Error al abrir el archivo!" << endl; color(12);
+	}
 }
 Jugador::~Jugador()
 {

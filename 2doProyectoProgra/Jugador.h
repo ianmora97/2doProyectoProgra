@@ -18,6 +18,7 @@ public:
 	void insertarficha(Ficha *ficha);
 	void getFichas();
 	void guardarPuntaje();
+	string sacarPuntaje();
 	string toString();
 	~Jugador();
 };
