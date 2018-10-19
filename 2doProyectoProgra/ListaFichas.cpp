@@ -16,23 +16,23 @@ void ListaFichas::insertarFicha(Ficha * ficha){
 bool ListaFichas::sacarFicha(string letra){ //metodo como el de eliminar pero busca primero
 	if (!vacia()) {
 		NodoFicha *anterior = NULL;
+		NodoFicha *aux = primero;
 		actual = primero;
-		while ((actual != NULL) && (encotrada(letra) == true)) {
-			anterior = actual;
-			actual = actual->getSig();
+		while ((aux != NULL) && aux->getFicha()->getLetra() != letra ) {
+			anterior = aux;
+			aux = aux->getSig();
 		}
-		if (actual == NULL) { //si la lista esta vacia
-			color(12); cout << "La ficha no se encuentra en la bolsa de fichas" << endl; color(15);
+		if (aux == NULL) { //si la lista esta vacia
 			return false;
 		}
 		else if (anterior == NULL) { //si el elemento es el primero
 			primero = primero->getSig();
-			delete actual;
+			delete aux;
 			return true;
 		}
 		else { //si el elemento se encuentra en la lista
-			anterior->setSig(actual->getSig());
-			delete actual;
+			anterior->setSig(aux->getSig());
+			delete aux;
 			return true;
 		}
 	}
@@ -41,12 +41,12 @@ bool ListaFichas::sacarFicha(string letra){ //metodo como el de eliminar pero bu
 	}
 }
 bool ListaFichas::encotrada(string letra){ //busca una ficha y retorna true si la encontro : false
-	NodoFicha* aux = primero;
-	aux = primero;
-	while (aux != NULL) {
-		if (aux->getFicha()->getLetra() == letra)
+	actual = primero;
+	while (actual != NULL) {
+		if (actual->getFicha()->getLetra() == letra) {
 			return true;
-		aux = aux->getSig();
+		}
+		actual = actual->getSig();
 	}
 	return false;
 }
@@ -69,4 +69,46 @@ string ListaFichas::toString() {
 	}
 	return p.str();
 }
-ListaFichas::~ListaFichas(){}
+string ListaFichas::toStringLetra() {
+	stringstream p;
+	actual = primero;
+	while (actual != NULL) {
+		p << "  " << actual->getFicha()->getLetra() << "  ";
+		actual = actual->getSig();
+	}
+	return p.str();
+}
+string ListaFichas::toStringValor() {
+	stringstream p;
+	actual = primero;
+	while (actual != NULL) {
+		p << "  " << actual->getFicha()->getValor() << "  ";
+		actual = actual->getSig();
+	}
+	return p.str();
+}
+bool ListaFichas::limpiarLista() {
+	actual = primero;
+	if (vacia()) {
+		return false;
+	}
+	else {
+		if (primero->getSig() == NULL) {
+			delete primero;
+			primero = NULL;
+		}
+		else {
+			while (actual->getSig()->getSig() != NULL) {
+				actual = actual->getSig();
+			}
+			delete actual->getSig();
+			actual->setSig(NULL);
+		}
+		return true;
+	}
+}
+ListaFichas::~ListaFichas(){
+	while (!(vacia())) {
+		limpiarLista();
+	}
+}

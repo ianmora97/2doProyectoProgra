@@ -16,9 +16,10 @@ public:
 	void setPuntaje(int);
 	void setNombre(string);
 	void insertarficha(Ficha *ficha);
-	void getFichas();
+	void cuadroFichas();
 	void guardarPuntaje();
 	string sacarPuntaje();
+	ListaFichas *getLista();
 	string toString();
 	~Jugador();
 };

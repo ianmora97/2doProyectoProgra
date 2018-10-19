@@ -12,21 +12,20 @@ int Herramientas::evaluarInt(int max, int min) {
 	int valor;
 	bool ciclo = true;
 	while (ciclo == true) {
-		cout << "\t> ";
+		cout << " > ";
 		color(11);
 		if (!(cin >> valor)) {
-			color(12); cerr << "Error!" << endl; color(15);
 			cin.clear();
 			cin.ignore(1024, '\n');
 			ciclo = true;
 		}
 		else {
-			if ((valor > min) && (valor < max)) {
+			if ((valor >= min) && (valor <= max)) {
+				cin.clear();
+				cin.ignore(1024, '\n');
 				ciclo = false;
 			}
 			else {
-				color(15); cerr << "Error!" << endl;
-				cerr << "Debe digitar numeros entre " << min << "-" << max << endl; color(15);
 				cin.clear();
 				cin.ignore(1024, '\n');
 				ciclo = true;
@@ -40,6 +39,8 @@ char Herramientas::evaluarChar() {
 	char valor;
 	bool ciclo = true;
 	while (ciclo == true) {
+		cout << " > ";
+		color(11);
 		if (!(cin >> valor)) {
 			cerr << "Error!" << endl;
 			cin.clear();
@@ -49,6 +50,7 @@ char Herramientas::evaluarChar() {
 		else {
 			ciclo = false;
 		}
+		color(15);
 	}
 	return valor;
 }
@@ -78,19 +80,51 @@ int Herramientas::charXColumna(char col) {
 	else if (col == 'O' || col == 'o') {num = 14;}
 	return num;
 }
-void Herramientas::turnoJugador(int t) {
+int Herramientas::valorFicha(string f) {
+	int num;
+	f = toUpper(f);
+	if (f == "A" || f == "I" || f == "O" || f == "R" || f == "S" || f == "T" || f == "U") {
+		num = 1;
+	}
+	else if (f == "B" || f == "C" || f == "M" || f == "P") {
+		num = 3;
+	}
+	else if (f == "CH" || f == "Q") {
+		num = 5;
+	}
+	else if (f == "D" || f == "E" || f == "G" || f == "N") {
+		num = 2;
+	}
+	else if (f == "F" || f == "H" || f == "V" || f == "Y") {
+		num = 4;
+	}
+	else if (f == "L") {
+		num = 6;
+	}
+	else if (f == "J" || f == "LL" || f == "Ñ" || f == "RR" || f == "X") {
+		num = 8;
+	}
+	else if (f == "Z") {
+		num = 9;
+	}
+	else {
+		num = 0;
+	}
+	return num;
+}
+void Herramientas::turnoJugador(int t,string n) {
 	color(15);
-	cout << "\t\t\t\t" << char(201);
-	for (int i = 0; i < 30; i++) { cout << char(205); }
+	cout << "\t" << char(201);
+	for (int i = 0; i < 40; i++) { cout << char(205); }
 	cout << char(187);
-	cout << "\n\t\t\t\t" << char(186);
+	cout << "\n\t" << char(186);
 	color(11);
-	cout << "        Jugador " << t << "             ";
+	cout << " Jugador " << t << "  "<<n;
 	color(15);
-	cout << char(186) << endl;
+	gotoxy(49,1); cout << char(186);
 	color(15);
-	cout << "\t\t\t\t" << char(200);
-	for (int i = 0; i < 30; i++) { cout << char(205); }
+	cout << "\n\t" << char(200);
+	for (int i = 0; i < 40; i++) { cout << char(205); }
 	cout << char(188) << endl;
 }
 void Herramientas::leerFichero(string nombre) {
@@ -132,4 +166,21 @@ void Herramientas::appendFichero(string nombre,string texto) {
 		cout << "Error al abrir el archivo!" << endl;
 	}
 	archivo.close();
+}
+string Herramientas::randomFichas() {
+	string ficha;
+	stringstream p;
+	int random;
+	random = rand() % 27;
+	if (random == 22) {
+		p << char(165);
+	}
+	else if (random == 26) {
+		p << "-";
+	}
+	else {
+		p << char(65 + random);
+	}
+	ficha = p.str();
+	return ficha;
 }

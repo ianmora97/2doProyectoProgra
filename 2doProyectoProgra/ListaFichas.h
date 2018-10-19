@@ -15,6 +15,9 @@ public:
 	bool vacia();
 	int cantidadFichas();
 	string toString();
+	string toStringLetra();
+	string toStringValor();
+	bool limpiarLista();
 	~ListaFichas();
 };
 #endif // !LISTAFICHA_H

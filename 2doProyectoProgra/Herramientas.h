@@ -18,10 +18,12 @@ public:
 	 char evaluarChar();
 	 string toUpper(string);
 	 int charXColumna(char);
-	 void turnoJugador(int t);
+	 int valorFicha(string = "letra");
+	 void turnoJugador(int t,string n);
 	 void leerFichero(string = "nombre del archivo");
 	 void escribirFichero(string = "nombre del archivo",string = "texto");
 	 void appendFichero(string = "nombre del archivo",string = "texto");
+	 string randomFichas();
 };
 
 #endif // !HERRAMIENTAS_H

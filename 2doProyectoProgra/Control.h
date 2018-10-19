@@ -10,6 +10,7 @@ class Control : public Herramientas{
 public:
 	Control();
 	void opciones();
+	void leeFichas();
 	~Control();
 };
 #endif // !CONTROL_H
