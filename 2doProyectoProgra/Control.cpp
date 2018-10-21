@@ -18,39 +18,25 @@ void Control::opciones() {
 	Jugador *jugador3 = new Jugador("indef");
 	Jugador *jugador4 = new Jugador("indef");
 	Ficha *fichaJugador = new Ficha("indef",0);
+	Ficha *ficha;
 	//---!Variables de jugadores---
 	
 	//--Variables contadores--
 	int cantidadJugadores;
 	srand(time(NULL));
 	string fichasacada;
-	string letraEligida;
+	string letraElegida;
 	char col;
 	int fil;
 	string letrasSacadas[100];
 	int cantLetrasSacadas = 0;
-	string letraElegida;
-	int valor; //la suma de valores de los jugadores -> el puntaje y guardarlo
+	int filAnterior, colAnterior;
+	int valor;
+	string matrizRevisa[15][15];
 	//--!Variables contadores--
-	
 	while (menuCiclo == true) {
 		//--------------------Ingresar las fichas en la lista------------------------
-		ifstream archivo;
-		string texto;
-		string nombre("Fichas/fichas.txt");
-		archivo.open(nombre.c_str(), ios::in);
-		Ficha *ficha;
-		if (archivo.is_open()) {
-			while (!archivo.eof()) {
-				archivo >> texto;
-				ficha = new Ficha(texto, valorFicha(texto));
-				bolsaFichas->insertarFicha(ficha);
-			}
-		}
-		else {
-			cout << "Error al abrir el archivo!" << endl;
-		}
-		archivo.close();
+		bolsaFichas->llenarLista();
 		//----------------------!Ingresar las fichas en la lista-------------------------
 		system("cls");
 		interfaz->imprime();
@@ -68,92 +54,142 @@ void Control::opciones() {
 				cout << "Digite el nombre del jugador 2: ";
 				getline(cin, nombreJugador);
 				jugador2->setNombre(nombreJugador);
-				for (int i = 0; i < 7; i++) {
-					fichasacada = randomFichas();
-					fichaJugador = new Ficha(fichasacada, valorFicha(fichasacada));
-					bolsaFichas->sacarFicha(fichasacada);
-					jugador1->insertarficha(fichaJugador);
-					letrasSacadas[cantLetrasSacadas] = fichasacada;
-					cantLetrasSacadas++;
+				for (int i = 0; i < 7; i++) { //reparte las fichas al jugador
+					fichasacada = randomFichas(); //llama al metodo de random para sacar un numero en especifico
+					fichaJugador = new Ficha(fichasacada, valorFicha(fichasacada)); //hace una ficha y con su letra y valor
+					bolsaFichas->sacarFicha(fichasacada); //saca las fichas de la bolsa de fichas
+					jugador1->insertarficha(fichaJugador); //ingresa la ficha en la lista de fichas del jugador
+					letrasSacadas[cantLetrasSacadas] = fichasacada; //guarda en un vector las fichas que fueron sacadas de la bolsa
+					cantLetrasSacadas++; //contador para saber cuantas fichas hay
 				}
-				
-				
-				for (int i = 0; i < 7; i++) {
-					for (int a = 0; a < cantLetrasSacadas; a++) {
-						fichasacada = randomFichas();
-						if (letrasSacadas[a] != fichasacada) {
-							letraElegida = fichasacada;
+				for (int i = 0; i < 7; i++) { //reparte las fichas al jugador 2
+					for (int a = 0; a < cantLetrasSacadas; a++) { //un ciclo que verifique si las fichas repartidas ya estan repetidas
+						fichasacada = randomFichas(); //llama al metodo random 
+						if (letrasSacadas[a] != fichasacada) { //verifia que la ficha no este repartida y llama de nuevo al metodo random
+							letraElegida = fichasacada; //la letraElegida va a ser la letra que se va a ingresar
 						}
 					}
-					fichaJugador = new Ficha(letraElegida, valorFicha(letraElegida));
-					bolsaFichas->sacarFicha(letraElegida);
-					jugador2->insertarficha(fichaJugador);
-					letrasSacadas[cantLetrasSacadas] = letraElegida;
-					cantLetrasSacadas++;
+					fichaJugador = new Ficha(letraElegida, valorFicha(letraElegida)); //hace un objeto tipo ficha
+					bolsaFichas->sacarFicha(letraElegida); //saca la ficha de la bolsa de fichas
+					jugador2->insertarficha(fichaJugador); //se le da la ficha al jugador 2
+					letrasSacadas[cantLetrasSacadas] = letraElegida; //ingresa la letra en el vector de letras sacadas de la bolsa
+					cantLetrasSacadas++; //contador para saber cuantas fichas hay
 				}
 				system("cls");
-				int cont = 0;
-				while ( (!(bolsaFichas->vacia())) && (!(jugador1->getLista()->vacia()) || !(jugador2->getLista()->vacia())) && (paso != 2)) {
-					if (cont % 2 == 0) {
+				int cont = 0; //contador para el turno del jugador
+				while ( (!(bolsaFichas->vacia())) && (!(jugador1->getLista()->vacia()) || !(jugador2->getLista()->vacia())) && (paso != 2)) { //verifica que hayan fichas en la bolsa
+					if (cont % 2 == 0) {//si el contador es par el jugador 1 va primero													//en que los jugadores tengan fichas, y que no hayan pasado mas de 2 veces
 						system("cls");
-						turnoJugador(cont+1, jugador1->getNombre());
-						tablero->imprimeTablero();
-						jugador1->cuadroFichas();
+						turnoJugador(cont+1, jugador1->getNombre()); //muestra el turno del jugador
+						tablero->imprimeTablero(); //imprime el tablero
+						jugador1->cuadroFichas(); //muestra las fichas del jugador
 						gotoxy(1,24); 
 						cout << "Que desea hacer?"<<endl;
 						int opc;
-						color(10); cout << "[1] Jugar -- [2] Pasar -- [0] Terminar Juego" << endl; color(15);
-						opc = evaluarInt(2,0);
+						bool _revisa; //devuelve true si es correcto en la matriz : false
+						color(10); cout << "[1] Jugar -- [2] Pasar -- [0] Terminar Juego" << endl; color(15); //opcion del jugador
+						opc = evaluarInt(2,0); //evalua el int
 						switch (opc){
 						case 1:
-							gotoxy(67,9); cout << "Cuantas fichas desea insertar al tablero?";
+							gotoxy(67,9); cout << "Cuantas fichas desea insertar al tablero?"; //mueve el cursor a una segunda columna de la pantalla
 							int cantFichasIngresar;
 							cantFichasIngresar = evaluarInt(7,2);
-							for (int i = 0; i < cantFichasIngresar; i++) {
-								gotoxy(67, 10); cout << "Digite la letra: ";
-								bool verifica = true;
-								while (verifica) {
-									if (!(cin>>letraEligida)) {
-										cin.clear();
-										cin.ignore();
-									}
-									else {
-										if (letraEligida.length() == 1 && jugador1->getLista()->encotrada(toUpper(letraEligida))) {
+							for (int i = 0; i < cantFichasIngresar; i++) { //ingresa fichas hasta que termine la cantidad de fichas por ingresar
+								if (listaTablero->vacia()) { //si es la primer jugada debe ingresar la letra en el centro
+									gotoxy(67, 10); cout << "Digite la letra: "; //digita la columna del tablero
+									bool verifica = true;
+									while (verifica) {
+										if (!(cin >> letraElegida)) {
 											cin.clear();
 											cin.ignore();
-											verifica = false;
 										}
 										else {
+											if (letraElegida.length() == 1 && jugador1->getLista()->encotrada(toUpper(letraElegida))) {
+												cin.clear();
+												cin.ignore();
+												verifica = false;
+											}
+											else {
+												cin.clear();
+												cin.ignore();
+											}
+										}
+									}
+									letraElegida = toUpper(letraElegida); //pasa la letra a mayuscula
+									gotoxy(84, 10); cout << letraElegida;
+									gotoxy(67, 12);
+									cout << "La primer letra es en el centro";
+									
+									col = 'H';
+									fil = 8;
+									matrizRevisa[fil][charXColumna(col)] = letraElegida;
+									filAnterior = 8;
+									colAnterior = charXColumna(col);
+									_revisa = true;
+								}
+								else {
+									gotoxy(67, 10); cout << "Digite la letra: "; //digita la columna del tablero
+									bool verifica = true;
+									while (verifica) {
+										if (!(cin >> letraElegida)) {
 											cin.clear();
 											cin.ignore();
 										}
+										else {
+											if (letraElegida.length() == 1 && jugador1->getLista()->encotrada(toUpper(letraElegida))) {
+												cin.clear();
+												cin.ignore();
+												verifica = false;
+											}
+											else {
+												cin.clear();
+												cin.ignore();
+											}
+										}
 									}
+									letraElegida = toUpper(letraElegida); //pasa la letra a mayuscula
+									gotoxy(84, 10); cout << letraElegida;
+									gotoxy(67, 12);
+									cin.clear();
+									cin.ignore();
+									cout << "Digite la columna: (A,B,C,...)";
+									col = evaluarChar();
+									gotoxy(67, 13);
+									cout << "Digite la fila: (1,2,3,...)";
+									
+									fil = evaluarInt(15, 1);
+									if (matrizRevisa[filAnterior + 1][colAnterior] == letraElegida || matrizRevisa[filAnterior][colAnterior + 1] == letraElegida) {
+										_revisa = true;
+										filAnterior = fil;
+										colAnterior = charXColumna(col);
+									}
+									else {
+										_revisa = false;
+									}									
 								}
-								letraEligida = toUpper(letraEligida);
-								gotoxy(83,10); cout << letraEligida;
-								gotoxy(67,12);
-								cout << "Digite la columna: (A,B,C,...)";
-								col = evaluarChar();
-								gotoxy(67,13);
-								cout << "Digite la fila: (1,2,3,...)";
-								fil = evaluarInt(15,1);
-								tablero->insertarFicha(fil,col,letraEligida);
-								jugador1->getLista()->sacarFicha(letraEligida);
-								ficha = new Ficha(letraEligida,valorFicha(letraEligida));
-								listaTablero->insertarFicha(ficha);
-								system("cls");
-								turnoJugador(cont + 1, jugador1->getNombre());
-								tablero->imprimeTablero();
-								jugador1->cuadroFichas();
+								if (_revisa == true) {
+									tablero->insertarFicha(fil, col, letraElegida); //inserta la ficha en el tablero
+									jugador1->getLista()->sacarFicha(letraElegida); //saca la ficha del jugador 
+									jugador1->setPuntaje(valorFicha(letraElegida)); //se suma al puntaje del jugador la ficha
+									ficha = new Ficha(letraElegida, valorFicha(letraElegida)); //se hace un objeto tipo ficha con la letra y el puntaje
+									listaTablero->insertarFicha(ficha); //inserta la ficha en la lista del tablero
+									system("cls");
+									turnoJugador(cont + 1, jugador1->getNombre()); //muestra por pantalla el nombre del jugador
+									tablero->imprimeTablero(); //imprime el tablero
+									jugador1->cuadroFichas(); //mustra las fichas restantes
+								}
+								else {
+									cantFichasIngresar--;
+								}
 							}
 							break;
 						case 2:
-							cout << "Pasar Turno!" << endl;
+							cout << "Pasar Turno!" << endl; //si pasa el turno al paso se le suma uno
 							paso = 0;
 							paso++;
 							break;
 						case 0:
-							cout << "Juego Terminado!" << endl;
+							cout << "Juego Terminado!" << endl; //si se termina el juego el paso es 2
 							paso = 2;
 							break;
 						default:
@@ -172,47 +208,96 @@ void Control::opciones() {
 						int opc;
 						color(10); cout << "[1] Jugar -- [2] Pasar -- [0] Terminar Juego" << endl; color(15);
 						opc = evaluarInt(2, 0);
+						bool _revisa;
 						switch (opc) {
 						case 1:
 							gotoxy(67, 9); cout << "Cuantas fichas desea insertar al tablero?";
 							int cantFichasIngresar;
 							cantFichasIngresar = evaluarInt(7, 2);
 							for (int i = 0; i < cantFichasIngresar; i++) {
-								gotoxy(67, 10); cout << "Digite la letra: ";
-								bool verifica = true;
-								while (verifica) {
-									if (!(cin >> letraEligida)) {
-										cin.clear();
-										cin.ignore();
-									}
-									else {
-										if (letraEligida.length() == 1 && jugador2->getLista()->encotrada(toUpper(letraEligida))) {
+								if (listaTablero->vacia()) {
+									gotoxy(67, 10); cout << "Digite la letra: ";
+									bool verifica = true;
+									while (verifica) {
+										if (!(cin >> letraElegida)) {
 											cin.clear();
 											cin.ignore();
-											verifica = false;
 										}
 										else {
+											if (letraElegida.length() == 1 && jugador2->getLista()->encotrada(toUpper(letraElegida))) {
+												cin.clear();
+												cin.ignore();
+												verifica = false;
+											}
+											else {
+												cin.clear();
+												cin.ignore();
+											}
+										}
+									}
+									letraElegida = toUpper(letraElegida);
+									gotoxy(83, 10); cout << letraElegida;
+									gotoxy(67, 12);
+									cin.clear();
+									cin.ignore();
+									cout << "Digite la columna: (A,B,C,...)";
+									gotoxy(67, 13);
+									cout << "Digite la fila: (1,2,3,...)";
+									col = 'H';
+									fil = 8;
+									_revisa = true;
+									
+								}
+								else {
+									gotoxy(67, 10); cout << "Digite la letra: ";
+									bool verifica = true;
+									while (verifica) {
+										if (!(cin >> letraElegida)) {
 											cin.clear();
 											cin.ignore();
 										}
+										else {
+											if (letraElegida.length() == 1 && jugador2->getLista()->encotrada(toUpper(letraElegida))) {
+												cin.clear();
+												cin.ignore();
+												verifica = false;
+											}
+											else {
+												cin.clear();
+												cin.ignore();
+											}
+										}
+									}
+									letraElegida = toUpper(letraElegida);
+									gotoxy(83, 10); cout << letraElegida;
+									gotoxy(67, 12);
+									cout << "Digite la columna: (A,B,C,...)";
+									col = evaluarChar();
+									gotoxy(67, 13);
+									cout << "Digite la fila: (1,2,3,...)";
+									fil = evaluarInt(15, 1);
+									if (matrizRevisa[filAnterior + 1][colAnterior] == letraElegida || matrizRevisa[filAnterior][colAnterior + 1] == letraElegida) {
+										_revisa = true;
+										filAnterior = fil;
+										colAnterior = charXColumna(col);
+									}
+									else {
+										_revisa = false;
 									}
 								}
-								letraEligida = toUpper(letraEligida);
-								gotoxy(83, 10); cout << letraEligida;
-								gotoxy(67, 12);
-								cout << "Digite la columna: (A,B,C,...)";
-								col = evaluarChar();
-								gotoxy(67, 13);
-								cout << "Digite la fila: (1,2,3,...)";
-								fil = evaluarInt(15, 1);
-								tablero->insertarFicha(fil, col, letraEligida);
-								jugador2->getLista()->sacarFicha(letraEligida);
-								ficha = new Ficha(letraEligida, valorFicha(letraEligida));
-								listaTablero->insertarFicha(ficha);
-								system("cls");
-								turnoJugador(cont + 1, jugador2->getNombre());
-								tablero->imprimeTablero();
-								jugador2->cuadroFichas();
+								if (_revisa == true) {
+									tablero->insertarFicha(fil, col, letraElegida);
+									jugador2->getLista()->sacarFicha(letraElegida);
+									ficha = new Ficha(letraElegida, valorFicha(letraElegida));
+									listaTablero->insertarFicha(ficha);
+									system("cls");
+									turnoJugador(cont + 1, jugador2->getNombre());
+									tablero->imprimeTablero();
+									jugador2->cuadroFichas();
+								}
+								else {
+									cantFichasIngresar--;
+								}
 							}
 							break;
 						case 2:
@@ -278,8 +363,9 @@ void Control::opciones() {
 			break;
 		case 2:
 			system("cls");
-			
-			system("PAUSE");
+			instrucciones1();
+			instrucciones2();
+			instrucciones3();
 			break;
 		case 3:
 			system("cls");

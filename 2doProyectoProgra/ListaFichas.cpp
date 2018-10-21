@@ -107,6 +107,26 @@ bool ListaFichas::limpiarLista() {
 		return true;
 	}
 }
+bool ListaFichas::llenarLista(){
+	ifstream archivo;
+	string texto;
+	string nombre("Fichas/fichas.txt");
+	archivo.open(nombre.c_str(), ios::in);
+	Ficha *ficha;
+	if (archivo.is_open()) {
+		while (!archivo.eof()) {
+			archivo >> texto;
+			ficha = new Ficha(texto, valorFicha(texto));
+			insertarFicha(ficha);
+		}
+		return true;
+	}
+	else {
+		cout << "Error al abrir el archivo!" << endl;
+		return false;
+	}
+	archivo.close();
+}
 ListaFichas::~ListaFichas(){
 	while (!(vacia())) {
 		limpiarLista();

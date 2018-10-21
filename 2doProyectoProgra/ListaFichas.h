@@ -18,6 +18,7 @@ public:
 	string toStringLetra();
 	string toStringValor();
 	bool limpiarLista();
+	bool llenarLista();
 	~ListaFichas();
 };
 #endif // !LISTAFICHA_H

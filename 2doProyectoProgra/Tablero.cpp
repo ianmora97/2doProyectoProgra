@@ -225,6 +225,7 @@ void Tablero::imprimeScrabble() {
 	cout << "\t _____| |  |  |___   |  |  |  |   | |   | |  |  []   | |  []   |  |  |___  |  |____ " << endl;
 	cout << "\t|_______|  |______|  |__|  |__|   |_|   |_|  |_______/ |_______/  |______| |_______|" << endl;
 }
-Tablero::~Tablero()
-{
+string Tablero::getTablero() {
+	return **tablero;
 }
+Tablero::~Tablero(){}

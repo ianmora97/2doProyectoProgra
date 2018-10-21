@@ -49,9 +49,7 @@ string Jugador::sacarPuntaje() {
 	}
 	return texto;
 }
-ListaFichas * Jugador::getLista(){
-	return listaFichas;
-}
+ListaFichas * Jugador::getLista() { return listaFichas; }
 Jugador::~Jugador(){
 	listaFichas->~ListaFichas();
 	nombreJugador = "indef";

@@ -20,6 +20,10 @@ public:
 	 int charXColumna(char);
 	 int valorFicha(string = "letra");
 	 void turnoJugador(int t,string n);
+	 bool verificaMatriz(string m[100][100]);
+	 void instrucciones1();
+	 void instrucciones2();
+	 void instrucciones3();
 	 void leerFichero(string = "nombre del archivo");
 	 void escribirFichero(string = "nombre del archivo",string = "texto");
 	 void appendFichero(string = "nombre del archivo",string = "texto");
