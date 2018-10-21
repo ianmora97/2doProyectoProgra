@@ -22,6 +22,10 @@ public:
 	 void escribirFichero(string);
 	 void escribirFichero(string,string);
 	 void appendFichero(string,string);
+	 string randomFichas();
+	 void instrucciones2();
+	 void instrucciones3();
+	 void instrucciones1();
 };
 
 #endif // !HERRAMIENTAS_H
