@@ -132,12 +132,21 @@ string Herramientas::randomFichas() {
 	string ficha;
 	stringstream p;
 	int random;
-	random = rand() % 27;
-	if (random == 22) {
+	random = rand() % 29; // entre 0 - 28
+	if (random == 22) { //la W = Ñ
 		p << char(165);
 	}
-	else if (random == 26) {
+	else if (random == 26) { //la [ = -
 		p << "-";
+	}
+	else if (random == 27) { // la \ = LL
+		p << "LL";
+	}
+	else if (random == 28) { // la ] = RR
+		p << "RR";
+	}
+	else if (random == 10) { // la K = CH
+		p << "CH";
 	}
 	else {
 		p << char(65 + random);
@@ -349,4 +358,51 @@ void Herramientas::instrucciones1() {
 	cin.clear();
 	cin.ignore();
 	cin.get();
+}
+int Herramientas::valorFicha(string f) {
+	int num;
+	f = toUpper(f);
+	if (f == "A" || f == "I" || f == "O" || f == "R" || f == "S" || f == "T" || f == "U") {
+		num = 1;
+	}
+	else if (f == "B" || f == "C" || f == "M" || f == "P") {
+		num = 3;
+	}
+	else if (f == "CH" || f == "Q") {
+		num = 5;
+	}
+	else if (f == "D" || f == "E" || f == "G" || f == "N") {
+		num = 2;
+	}
+	else if (f == "F" || f == "H" || f == "V" || f == "Y") {
+		num = 4;
+	}
+	else if (f == "L") {
+		num = 6;
+	}
+	else if (f == "J" || f == "LL" || f == "Ñ" || f == "RR" || f == "X") {
+		num = 8;
+	}
+	else if (f == "Z") {
+		num = 9;
+	}
+	else {
+		num = 0;
+	}
+	return num;
+}
+void Herramientas::turnoJugador(int t, string n) {
+	color(15);
+	cout << "\t" << char(201);
+	for (int i = 0; i < 40; i++) { cout << char(205); }
+	cout << char(187);
+	cout << "\n\t" << char(186);
+	color(11);
+	cout << " Jugador " << t << "  " << n;
+	color(15);
+	gotoxy(49, 1); cout << char(186);
+	color(15);
+	cout << "\n\t" << char(200);
+	for (int i = 0; i < 40; i++) { cout << char(205); }
+	cout << char(188) << endl;
 }

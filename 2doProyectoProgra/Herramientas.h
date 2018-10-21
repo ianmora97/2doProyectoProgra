@@ -26,6 +26,8 @@ public:
 	 void instrucciones2();
 	 void instrucciones3();
 	 void instrucciones1();
+	 int valorFicha(string);
+	 void turnoJugador(int,string);
 };
 
 #endif // !HERRAMIENTAS_H
