@@ -115,16 +115,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Control.h" />
     <ClInclude Include="Ficha.h" />
     <ClInclude Include="Herramientas.h" />
+    <ClInclude Include="Interfaz.h" />
     <ClInclude Include="Jugador.h" />
     <ClInclude Include="ListaFichas.h" />
     <ClInclude Include="NodoFicha.h" />
     <ClInclude Include="Tablero.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Control.cpp" />
     <ClCompile Include="Ficha.cpp" />
     <ClCompile Include="Herramientas.cpp" />
+    <ClCompile Include="Interfaz.cpp" />
     <ClCompile Include="Jugador.cpp" />
     <ClCompile Include="ListaFichas.cpp" />
     <ClCompile Include="main.cpp" />

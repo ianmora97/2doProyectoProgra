@@ -8,6 +8,7 @@ public:
 	void insertarFicha(int,char,string);
 	void imprimeTablero();
 	void imprimeScrabble();
+	string getTablero();
 	~Tablero();
 protected:
 	string **tablero;
