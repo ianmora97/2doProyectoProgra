@@ -106,7 +106,7 @@ int Herramientas::valorFicha(string f) {
 	}
 	else if (f == "Z") {
 		num = 9;
-	}
+	}	
 	else {
 		num = 0;
 	}
