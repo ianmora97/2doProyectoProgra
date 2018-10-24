@@ -6,22 +6,7 @@ int Interfaz::menu(){
 	return opc;
 }
 void Interfaz::imprime(){
-	system("cls");
 	color(15);
-	cout << endl << endl << endl;
-	cout << "\t\t\t\t" << char(201);
-	for (int i = 0; i < 30; i++) { cout << char(205); } 
-	cout << char(187);
-	cout << "\n\t\t\t\t" << char(186);
-	color(11);
-	cout << "        MENU PRINCIPAL        ";
-	color(15);
-	cout << char(186) << endl;
-	color(15);
-	cout << "\t\t\t\t" << char(200);
-	for (int i = 0; i < 30; i++) { cout << char(205); }
-	cout << char(188) << endl;
-
 	cout << "\t\t\t" << char(201);
 	for (int i = 0; i < 46; i++) { cout << char(205); }
 	cout << char(187);
@@ -31,7 +16,7 @@ void Interfaz::imprime(){
 
 	cout << "\t\t\t";
 	cout << char(186);
-	color(10);
+	color(13);
 	cout << "  [1]";
 	color(15);
 	cout << "   Jugar\n";
@@ -39,7 +24,7 @@ void Interfaz::imprime(){
 	cout << char(186) << endl;
 	cout << "\t\t\t";
 	cout << char(186);
-	color(10);
+	color(13);
 	cout << "  [2]";
 	color(15);
 	cout << "   Instrucciones\n";
@@ -47,7 +32,7 @@ void Interfaz::imprime(){
 	cout << char(186) << endl;
 	cout << "\t\t\t";
 	cout << char(186);
-	color(10);
+	color(13);
 	cout << "  [3]";
 	color(15);
 	cout << "   Mostrar Puntajes\n";
@@ -55,7 +40,7 @@ void Interfaz::imprime(){
 	cout << char(186) << endl;
 	cout << "\t\t\t";
 	cout << char(186);
-	color(10);
+	color(13);
 	cout << "  [4]";
 	color(15);
 	cout << "   Mostrar Palabras Creadas\n";
@@ -63,7 +48,7 @@ void Interfaz::imprime(){
 	cout << char(186) << endl;
 	cout << "\t\t\t";
 	cout << char(186);
-	color(10);
+	color(13);
 	cout << "  [0]";
 	color(15);
 	cout << "   Salir del programa\n";
@@ -91,7 +76,7 @@ int Interfaz::validar(){
 	bool c = true;
 	while (c) {
 		gotoxy(35, 20); cout << "Opcion > ";
-		color(10);
+		color(13);
 		if (!(cin >> opc)) {
 			color(15);
 			gotoxy(44, 20); cout << "                           " << char(186) << "            "; 
@@ -118,5 +103,20 @@ int Interfaz::validar(){
 		color(15);
 	}
 	return opc;
+}
+void Interfaz::cuadros() {
+	int col;
+	for (int i = 0; i < 40; i++) {
+		for (int j = 0; j < 110; j++) {
+			col = rand() % 110;
+			if ((i+j)%2 == 0) {
+				Herramientas::gotoxy(col, i); Herramientas::color(221); cout << " ";
+			}
+			else {
+				Herramientas::gotoxy(col, i); Herramientas::color(15); cout << " ";
+			}
+		}
+	}
+	Herramientas::color(15);
 }
 Interfaz::~Interfaz(){}

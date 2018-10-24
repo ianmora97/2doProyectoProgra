@@ -8,6 +8,7 @@ public:
 	int menu();
 	void imprime();
 	int validar();
+	void cuadros();
 	~Interfaz();
 };
 #endif // !INTERFAZ_H

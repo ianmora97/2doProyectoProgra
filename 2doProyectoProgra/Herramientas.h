@@ -12,22 +12,23 @@
 using namespace std;
 class Herramientas {
 public:
-	 void gotoxy(int, int);
-	 void color(int);
-	 int evaluarInt(int,int);
-	 char evaluarChar();
-	 string toUpper(string);
-	 int charXColumna(char);
-	 int valorFicha(string = "letra");
-	 void turnoJugador(int t,string n);
-	 bool verificaMatriz(string m[100][100]);
-	 void instrucciones1();
-	 void instrucciones2();
-	 void instrucciones3();
-	 void leerFichero(string = "nombre del archivo");
-	 void escribirFichero(string = "nombre del archivo",string = "texto");
-	 void appendFichero(string = "nombre del archivo",string = "texto");
-	 string randomFichas();
+	 static void gotoxy(int, int);
+	 static void color(int);
+	 static int evaluarInt(int,int);
+	 static char evaluarChar();
+	 static string toUpper(string);
+	 static int charXColumna(char);
+	 static int valorFicha(string = "letra");
+	 static void turnoJugador(int t,string n);
+	 static bool verificaMatriz(string m[100][100]);
+	 static void instrucciones1();
+	 static void instrucciones2();
+	 static void instrucciones3();
+	 static void leerFichero(string = "nombre del archivo");
+	 static void escribirFichero(string = "nombre del archivo",string = "texto");
+	 static void appendFichero(string = "nombre del archivo",string = "texto");
+	 static string randomFichas();
+	 static void borrarFichero(string = "nombre del archivo");
 };
 
 #endif // !HERRAMIENTAS_H

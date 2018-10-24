@@ -8,7 +8,7 @@ protected:
 	string letra;
 	int valor;
 public:
-	Ficha(string = "indef", int = 0);
+	Ficha(string = "indef", int =0);
 	string getLetra();
 	int getValor();
 	void setLetra(string);

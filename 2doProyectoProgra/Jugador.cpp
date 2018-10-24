@@ -5,13 +5,12 @@ int Jugador::getPuntaje() {return puntajeJugador;}
 int Jugador::getCanFichas(){return canFichas;}
 void Jugador::setPuntaje(int p) {puntajeJugador = puntajeJugador + p;}
 void Jugador::setNombre(string nombre) { nombreJugador = nombre; }
-void Jugador::insertarficha(Ficha * ficha) { listaFichas->insertarFicha(ficha); canFichas++; }
-void Jugador::cuadroFichas() {
-	color(11); gotoxy(67, 4); cout << "Fichas:"; color(15);
-	color(11); gotoxy(67, 6); cout << "Letra:"; color(15);
-	color(243); gotoxy(74, 6); cout << listaFichas->toStringLetra(); color(15);
-	color(11); gotoxy(67, 7); cout << "Valor:"; color(15);
-	color(243); gotoxy(74, 7); cout << listaFichas->toStringValor(); color(15);
+void Jugador::insertarficha(Ficha * ficha) { 
+	listaFichas->insertarFicha(ficha);
+	canFichas++;
+}
+void Jugador::sacarFicha(string l) {
+	listaFichas->sacarFicha(l);
 }
 string Jugador::toString() {
 	stringstream s;

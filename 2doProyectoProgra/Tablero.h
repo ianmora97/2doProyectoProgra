@@ -5,13 +5,14 @@ using namespace std;
 class Tablero : public Herramientas{
 public:
 	Tablero();
-	void insertarFicha(int,char,string);
+	bool insertarFicha(int,char,string);
 	void imprimeTablero();
 	void imprimeScrabble();
 	string getTablero();
 	~Tablero();
-protected:
+private:
 	string **tablero;
+	bool matrizBoleana[15][15];
 	int fila, columna;
 	int can, tam;
 };

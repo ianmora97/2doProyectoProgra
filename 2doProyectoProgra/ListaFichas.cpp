@@ -17,7 +17,6 @@ bool ListaFichas::sacarFicha(string letra){ //metodo como el de eliminar pero bu
 	if (!vacia()) {
 		NodoFicha *anterior = NULL;
 		NodoFicha *aux = primero;
-		actual = primero;
 		while ((aux != NULL) && aux->getFicha()->getLetra() != letra ) {
 			anterior = aux;
 			aux = aux->getSig();
@@ -35,9 +34,6 @@ bool ListaFichas::sacarFicha(string letra){ //metodo como el de eliminar pero bu
 			delete aux;
 			return true;
 		}
-	}
-	else {
-		return false;
 	}
 }
 bool ListaFichas::encotrada(string letra){ //busca una ficha y retorna true si la encontro : false
@@ -69,24 +65,6 @@ string ListaFichas::toString() {
 	}
 	return p.str();
 }
-string ListaFichas::toStringLetra() {
-	stringstream p;
-	actual = primero;
-	while (actual != NULL) {
-		p << "  " << actual->getFicha()->getLetra() << "  ";
-		actual = actual->getSig();
-	}
-	return p.str();
-}
-string ListaFichas::toStringValor() {
-	stringstream p;
-	actual = primero;
-	while (actual != NULL) {
-		p << "  " << actual->getFicha()->getValor() << "  ";
-		actual = actual->getSig();
-	}
-	return p.str();
-}
 bool ListaFichas::limpiarLista() {
 	actual = primero;
 	if (vacia()) {
@@ -107,25 +85,26 @@ bool ListaFichas::limpiarLista() {
 		return true;
 	}
 }
-bool ListaFichas::llenarLista(){
-	ifstream archivo;
-	string texto;
-	string nombre("Fichas/fichas.txt");
-	archivo.open(nombre.c_str(), ios::in);
-	Ficha *ficha;
-	if (archivo.is_open()) {
-		while (!archivo.eof()) {
-			archivo >> texto;
-			ficha = new Ficha(texto, valorFicha(texto));
-			insertarFicha(ficha);
+void ListaFichas::getLetras() {
+	stringstream p;
+	string letra;
+	actual = primero;
+	int cont = 0;
+	while (actual != NULL) {
+		letra = actual->getFicha()->getLetra();
+		if (letra == "CH" || letra == "LL" || letra == "RR") {
+			gotoxy(72 + (cont * 5), 7); color(243); cout << " " << actual->getFicha()->getLetra() << " ";
+			gotoxy(72 + (cont * 5), 8); color(243); cout << " " << actual->getFicha()->getValor() << "  ";
 		}
-		return true;
+		else {
+			gotoxy(72 + (cont * 5), 7); color(243); cout << " " << actual->getFicha()->getLetra() << "  ";
+			gotoxy(72 + (cont * 5), 8); color(243); cout << " " << actual->getFicha()->getValor() << "  ";
+		}
+		
+		actual = actual->getSig();
+		cont++;
 	}
-	else {
-		cout << "Error al abrir el archivo!" << endl;
-		return false;
-	}
-	archivo.close();
+	color(15);
 }
 ListaFichas::~ListaFichas(){
 	while (!(vacia())) {

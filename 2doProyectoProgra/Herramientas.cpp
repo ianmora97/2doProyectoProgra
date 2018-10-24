@@ -114,23 +114,22 @@ int Herramientas::valorFicha(string f) {
 }
 void Herramientas::turnoJugador(int t,string n) {
 	color(15);
-	cout << "\t" << char(201);
+	cout << "      " << char(201);
 	for (int i = 0; i < 40; i++) { cout << char(205); }
 	cout << char(187);
-	cout << "\n\t" << char(186);
+	cout << "\n      " << char(186);
 	color(11);
 	cout << " Jugador " << t << "  "<<n;
 	color(15);
-	gotoxy(49,1); cout << char(186);
+	gotoxy(47,1); cout << char(186);
 	color(15);
-	cout << "\n\t" << char(200);
+	cout << "\n      " << char(200);
 	for (int i = 0; i < 40; i++) { cout << char(205); }
 	cout << char(188) << endl;
 }
 void Herramientas::leerFichero(string nombre) {
 	string texto;
 	ifstream archivo;
-	nombre = (nombre + ".txt");
 	archivo.open(nombre.c_str(), ios::in);
 	if (archivo.is_open()) {
 		while (!archivo.eof()) {
@@ -145,7 +144,6 @@ void Herramientas::leerFichero(string nombre) {
 }
 void Herramientas::escribirFichero(string nombre, string texto) {
 	ofstream archivo;
-	nombre = (nombre + ".txt");
 	archivo.open(nombre.c_str(), ios::out);
 	if (archivo.is_open()) {
 		archivo << texto;
@@ -157,7 +155,6 @@ void Herramientas::escribirFichero(string nombre, string texto) {
 }
 void Herramientas::appendFichero(string nombre,string texto) {
 	ofstream archivo;
-	nombre = (nombre + ".txt");
 	archivo.open(nombre.c_str(), ios::app);
 	if (archivo.is_open()) {
 		archivo << texto;
@@ -166,6 +163,9 @@ void Herramientas::appendFichero(string nombre,string texto) {
 		cout << "Error al abrir el archivo!" << endl;
 	}
 	archivo.close();
+}
+void Herramientas::borrarFichero(string nombre) {
+	remove(nombre.c_str());
 }
 bool Herramientas::verificaMatriz(string m[100][100]) {
 	
@@ -176,12 +176,21 @@ string Herramientas::randomFichas() {
 	string ficha;
 	stringstream p;
 	int random;
-	random = rand() % 27;
-	if (random == 22) {
+	random = rand() % 29; // entre 0 - 28
+	if (random == 22) { //la W = Ñ
 		p << char(165);
 	}
-	else if (random == 26) {
+	else if (random == 26) { //la [ = -
 		p << "-";
+	}
+	else if (random == 27) { // la \ = LL
+		p << "LL";
+	}
+	else if (random == 28) { // la ] = RR
+		p << "RR";
+	}
+	else if (random == 10) { // la K = CH
+		p << "CH";
 	}
 	else {
 		p << char(65 + random);
