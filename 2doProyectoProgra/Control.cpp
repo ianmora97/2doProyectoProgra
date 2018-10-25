@@ -39,7 +39,8 @@ void Control::opciones() {
 				system("cls");
 				int turno = 0;
 				int pasar = 0;
-				
+				string palabra;
+				string _letra;
 				while (!(bolsaFichas->vacia()) && !(jugador1->getLista()->vacia()) && !(jugador2->getLista()->vacia()) && pasar != 2) {
 					if (turno % 2 == 0) {
 						system("cls");
@@ -54,12 +55,26 @@ void Control::opciones() {
 							jugador1->getLista()->getLetras();
 
 							//nuevo
-							string palabra;
-							getline(cin, palabra, END);
-							if (game->verificaLetras(jugador1, palabra)) {
-
+							if (listaTablero->getCantidadNodos() == 0) {
+								bool hv;
+								palabra = game->pidePalabra();
+								if (game->verificaLetras(jugador1, palabra)) {
+									hv = game->horiVert();
+									Herramientas::gotoxy(72, 20);
+									if (game->ingresarPalabra(tablero, palabra, 8, 'H', hv,jugador1,listaTablero)) {
+										system("cls");
+										jugador1->turnoJugador();
+										tablero->imprimeTablero();
+										jugador1->getLista()->getLetras();
+										Herramientas::gotoxy(72, 12); cin.get();
+									}
+								}
 							}
-							
+							else {
+								Herramientas::gotoxy(72, 12); Herramientas::color(15); cout << "Digite la letra(Ficha)  : ";
+								getline(cin, _letra, END);
+								//metodo para ingresar ficha por ficha
+							}
 							cin.get();
 
 							//!nuevo
@@ -67,7 +82,7 @@ void Control::opciones() {
 						}
 						else if (opcGame == 2) {
 							turno++;
-							pasar == 1 ? pasar++ : pasar = 0;
+							pasar++;
 						}
 						else if (opcGame == 3) {
 							pasar = 2;
@@ -78,7 +93,7 @@ void Control::opciones() {
 						system("cls");
 						jugador2->turnoJugador();
 						tablero->imprimeTablero();
-						jugador1->getLista()->getLetras();
+						jugador2->getLista()->getLetras();
 						int opcGame = game->menu();
 						if (opcGame == 1) {
 							system("cls");
@@ -100,6 +115,7 @@ void Control::opciones() {
 				}
 				system("cls");
 				cout << "El ganador es: "<<endl;
+
 				cout << endl;
 				Herramientas::gotoxy(1,105); system("PAUSE");
 				

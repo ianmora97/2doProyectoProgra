@@ -98,16 +98,16 @@ Tablero::Tablero(){
 		}
 	}
 }
-void Tablero::insertarFicha(int f,char c,string letra) {
+void Tablero::insertarFicha(int f,int c,string letra) {
 	if (can < tam) {
 		string le;
-		if (letra == "CH" || letra == "LL" || letra == "NY" || letra == "RR") {
+		if (letra == "CH" || letra == "LL" || letra == "RR") {
 			le = " " + toUpper(letra) + " ";
 		}
 		else {
 			le = " " + toUpper(letra) + "  ";
 		}
-		tablero[f - 1][charXColumna(c)] = le;
+		tablero[f - 1][c] = le;
 		can++;
 	}
 }

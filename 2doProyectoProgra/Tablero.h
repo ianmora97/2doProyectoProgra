@@ -5,7 +5,7 @@ using namespace std;
 class Tablero : public Herramientas{
 public:
 	Tablero();
-	void insertarFicha(int,char,string);
+	void insertarFicha(int,int,string);
 	void imprimeTablero();
 	void imprimeScrabble();
 	bool verificaPosicion(string palabra);

@@ -13,7 +13,9 @@ public:
 	void setJugador(Jugador*,ListaFichas*,int);
 	void setCantidadJugadores();
 	bool verificaLetras(Jugador*,string);
-	bool ingresarTableroFichas(Jugador*, ListaFichas*);
+	bool ingresarPalabra(Tablero*t ,string palabra, int f, char c, bool hv,Jugador *j, ListaFichas *l);
+	bool horiVert();
+	string pidePalabra();
 	int menu();
 	~Funcionalidad();
 };

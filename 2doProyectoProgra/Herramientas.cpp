@@ -12,8 +12,9 @@ int Herramientas::evaluarInt(int max, int min) {
 	int valor;
 	bool ciclo = true;
 	while (ciclo == true) {
+		color(15);
 		cout << " > ";
-		color(11);
+		color(13);
 		if (!(cin >> valor)) {
 			cin.clear();
 			cin.ignore(1024, '\n');

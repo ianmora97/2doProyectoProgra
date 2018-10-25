@@ -114,8 +114,58 @@ bool Funcionalidad::verificaLetras(Jugador* j,string palabra) {
 		return false;
 	}
 }
-bool Funcionalidad::ingresarTableroFichas(Jugador *j, ListaFichas *l){
 
+bool Funcionalidad::ingresarPalabra(Tablero * t, string palabra, int f, char c, bool hv, Jugador *j, ListaFichas *l){ //coordenadas de inicio
+	int lenPalabra;
+	lenPalabra = palabra.length();
+	palabra = Herramientas::toUpper(palabra);
+	Ficha *ficha;
+	int cont = 0;
+	char ch;
+	int col = Herramientas::charXColumna(c);
+	string letra;
+	if (hv == true) { // horizontal
+		for (int i = 0; i < lenPalabra; i++) {
+			ch = palabra[i];
+			letra = Herramientas::convierteString(ch);
+			t->insertarFicha(f, (col + i), letra);
+			if (j->getLista()->sacarFicha(letra)) {
+				ficha = new Ficha(letra, Herramientas::valorFicha(letra));
+				l->insertarFicha(ficha);
+			}
+		}
+		return true;
+	}
+	else { //vertical
+		for (int i = 0; i < lenPalabra; i++) {
+			ch = palabra[i];
+			letra = Herramientas::convierteString(ch);
+			t->insertarFicha(f + i, col, letra);
+			if (j->getLista()->sacarFicha(letra)) {
+				ficha = new Ficha(letra, Herramientas::valorFicha(letra));
+				l->insertarFicha(ficha);
+			}
+		}
+		return true;
+	}
+	
 	return false;
+	
+}
+bool Funcionalidad::horiVert() {
+	Herramientas::gotoxy(72, 9); Herramientas::color(15); cout << "Como desea ingresar la palabra";
+	Herramientas::gotoxy(72, 10); Herramientas::color(13); cout << "[1] Horizontal || [2] Vertical";
+	int opc = Herramientas::evaluarInt(2, 1);
+	if (opc == 1) {
+		return true;
+	}
+	return false;
+}
+
+string Funcionalidad::pidePalabra() {
+	Herramientas::gotoxy(72, 7); cout << "Digite la palabra: ";
+	string palabra;
+	getline(cin, palabra, END);
+	return palabra;
 }
 Funcionalidad::~Funcionalidad(){}

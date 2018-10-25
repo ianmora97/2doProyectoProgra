@@ -1,16 +1,18 @@
 #include "ListaFichas.h"
-ListaFichas::ListaFichas() : primero(NULL), actual(NULL){}
+ListaFichas::ListaFichas() : primero(NULL), actual(NULL), cantidadNodos(0){}
 void ListaFichas::insertarFicha(Ficha * ficha){
 	NodoFicha *aux = new NodoFicha(ficha, NULL);
 	actual = primero;
 	if (vacia()) {
 		primero = aux;
+		sumaNodo();
 	}
 	else {
 		while (actual->getSig() != NULL) { //recorre hasta null ( recorre hasta el ultimo nodo )
 			actual = actual->getSig();
 		}
 		actual->setSig(aux);
+		sumaNodo();
 	}
 }
 bool ListaFichas::sacarFicha(string letra){ //metodo como el de eliminar pero busca primero
@@ -111,6 +113,8 @@ void ListaFichas::getLetras() {
 	}
 	color(15);
 }
+int ListaFichas::getCantidadNodos() { return cantidadNodos; }
+void ListaFichas::sumaNodo() {cantidadNodos++;}
 ListaFichas::~ListaFichas(){
 	while (!(vacia())) {
 		limpiarLista();
