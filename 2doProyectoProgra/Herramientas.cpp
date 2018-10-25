@@ -55,11 +55,10 @@ char Herramientas::evaluarChar() {
 	return valor;
 }
 string Herramientas::toUpper(string palabra) {
-	string upperWord;
-	for (int i = 0; palabra[i]; i++) {
-		upperWord = toupper(palabra[i]);
+	for (int i = 0; i < palabra.length(); i++) {
+		palabra[i] = toupper(palabra[i]);
 	}
-	return upperWord;
+	return palabra;
 }
 int Herramientas::charXColumna(char col) {
 	int num;
@@ -111,21 +110,6 @@ int Herramientas::valorFicha(string f) {
 		num = 0;
 	}
 	return num;
-}
-void Herramientas::turnoJugador(int t,string n) {
-	color(15);
-	cout << "      " << char(201);
-	for (int i = 0; i < 40; i++) { cout << char(205); }
-	cout << char(187);
-	cout << "\n      " << char(186);
-	color(11);
-	cout << " Jugador " << t << "  "<<n;
-	color(15);
-	gotoxy(47,1); cout << char(186);
-	color(15);
-	cout << "\n      " << char(200);
-	for (int i = 0; i < 40; i++) { cout << char(205); }
-	cout << char(188) << endl;
 }
 void Herramientas::leerFichero(string nombre) {
 	string texto;
@@ -197,6 +181,11 @@ string Herramientas::randomFichas() {
 	}
 	ficha = p.str();
 	return ficha;
+}
+string Herramientas::convierteString(char c){
+	stringstream p;
+	p << c;
+	return p.str();
 }
 void Herramientas::instrucciones2() {
 

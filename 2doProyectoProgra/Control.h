@@ -1,5 +1,7 @@
 #ifndef CONTROL_H
 #define CONTROL_H
+#define END '\n'
+#define TAB '\t'
 #include "Herramientas.h"
 #include "Funcionalidad.h"
 #include "Interfaz.h"

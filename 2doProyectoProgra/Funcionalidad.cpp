@@ -1,9 +1,5 @@
 #include "Funcionalidad.h"
-Funcionalidad::Funcionalidad() : pasar(true), terminar(true){}
-bool Funcionalidad::getPasar() { return pasar; }
-bool Funcionalidad::getTerminar() { return terminar; }
-void Funcionalidad::setPasar(bool pasar) { this->pasar = pasar; }
-void Funcionalidad::setTerminar(bool terminar) { this->terminar = terminar; }
+Funcionalidad::Funcionalidad(){}
 bool Funcionalidad::llenarLista(ListaFichas *l) {
 	ifstream archivo; //lectura
 	string texto;
@@ -86,22 +82,40 @@ void Funcionalidad::setCantidadJugadores() {
 	cout << "\tCuantos jugadores desean jugar? ";
 	Herramientas::color(11); cout << "[min -> 2 || max -> 4]"; Herramientas::color(15);
 }
-void Funcionalidad::jugar(Jugador *j, ListaFichas *l, int turno, Tablero* t, ListaFichas *listaTab) {
-
-	
-}
 int Funcionalidad::menu() {
-	Herramientas::gotoxy(6, 25); Herramientas::color(13); cout << "\n\tQue desea hacer?";
-	Herramientas::gotoxy(6, 26); Herramientas::color(13); cout << "[1] Jugar";
-	Herramientas::gotoxy(6, 25); Herramientas::color(13); cout << "[2] Pasar Turno";
-	Herramientas::gotoxy(6, 26); Herramientas::color(13); cout << "[3] Terminar Juego";;
-	Herramientas::gotoxy(6, 23); cout << char(201); for (int i = 0; i < 20; i++) { cout << char(205); } cout << char(187);
-	for (int i = 0; i < 8; i++) { Herramientas::gotoxy(6, 24 + i); cout << char(186); Herramientas::gotoxy(27, 24 + i); cout << char(186); }
-	Herramientas::gotoxy(6, 32); cout << char(200); for (int i = 0; i < 20; i++) { cout << char(205); } cout << char(188);
+	Herramientas::gotoxy(74, 9); Herramientas::color(13); cout << "Que desea hacer?";
+	Herramientas::gotoxy(74, 10); Herramientas::color(13); cout << "[1] Jugar";
+	Herramientas::gotoxy(74, 11); Herramientas::color(13); cout << "[2] Pasar Turno";
+	Herramientas::gotoxy(74, 12); Herramientas::color(13); cout << "[3] Terminar Juego";
+	Herramientas::color(15);
+	Herramientas::gotoxy(72, 7); cout << char(201); for (int i = 0; i < 20; i++) { cout << char(205); } cout << char(187);
+	for (int i = 0; i < 8; i++) { Herramientas::gotoxy(72, 8 + i); cout << char(186); Herramientas::gotoxy(93, 8 + i); cout << char(186); }
+	Herramientas::gotoxy(72, 16); cout << char(200); for (int i = 0; i < 20; i++) { cout << char(205); } cout << char(188);
 	int opc;
-	Herramientas::gotoxy(8, 29); opc = Herramientas::evaluarInt(3, 1);
+	Herramientas::color(13); Herramientas::gotoxy(74, 14); opc = Herramientas::evaluarInt(3, 1);
 	return opc;
 }
-Funcionalidad::~Funcionalidad(){
-
+bool Funcionalidad::verificaLetras(Jugador* j,string palabra) {
+	int lenPalabra;
+	lenPalabra = palabra.length();
+	palabra = Herramientas::toUpper(palabra);
+	int cont=0;
+	char c;
+	for (int i = 0; i < lenPalabra; i++) {
+		c = palabra[i];
+		if (j->getLista()->encotrada(Herramientas::convierteString(c))) {
+			cont++;
+		}
+	}
+	if (cont == lenPalabra) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
+bool Funcionalidad::ingresarTableroFichas(Jugador *j, ListaFichas *l){
+
+	return false;
+}
+Funcionalidad::~Funcionalidad(){}

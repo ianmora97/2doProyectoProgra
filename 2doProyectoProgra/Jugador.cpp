@@ -12,6 +12,13 @@ void Jugador::insertarficha(Ficha * ficha) {
 void Jugador::sacarFicha(string l) {
 	listaFichas->sacarFicha(l);
 }
+void Jugador::turnoJugador() {
+	cout << "\n\tTurno de:\t--->\t";
+	color(13);
+	gotoxy(20, 1); cout << "| Nombre del Jugador  : " << nombreJugador;
+	gotoxy(20, 2); cout << "| Puntaje del Jugador : " << puntajeJugador;
+	gotoxy(20, 3); cout << "| Cantidad de Fichas  : " << canFichas;
+}
 string Jugador::toString() {
 	stringstream s;
 	s << "Nombre del Jugador: " << nombreJugador << endl;

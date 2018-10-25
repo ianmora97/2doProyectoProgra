@@ -3,22 +3,18 @@
 #include "ListaFichas.h"
 #include "Jugador.h"
 #include "Tablero.h"
+#define END '\n'
+#define TAB '\t'
 using namespace std;
 class Funcionalidad{
 public:
 	Funcionalidad();
-	bool getPasar();
-	bool getTerminar();
-	void setPasar(bool);
-	void setTerminar(bool);
 	bool llenarLista(ListaFichas*);
 	void setJugador(Jugador*,ListaFichas*,int);
 	void setCantidadJugadores();
+	bool verificaLetras(Jugador*,string);
+	bool ingresarTableroFichas(Jugador*, ListaFichas*);
 	int menu();
-	void jugar(Jugador*, ListaFichas*, int, Tablero*, ListaFichas*);
 	~Funcionalidad();
-private:
-	bool pasar;
-	bool terminar;
 };
 #endif // !FUNCIONALIDAD_H

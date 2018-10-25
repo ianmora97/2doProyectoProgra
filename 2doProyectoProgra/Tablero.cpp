@@ -4,7 +4,7 @@ Tablero::Tablero(){
 	columna = 15;
 	can = 0;
 	tam = 225;
-	tablero = new string*[fila]; // una matriz dinamica con objetos automaticos de tipo string
+	tablero = new string*[fila];
 	for (int i = 0; i < fila; i++) {
 		tablero[i] = new string[columna];
 	}
@@ -57,14 +57,48 @@ Tablero::Tablero(){
 			}else {tablero[i][j] = "    ";}
 		}
 	}
-	
-	for (int i = 0; i < fila; i++) {
-		for (int j = 0; j < columna; j++) {
-			matrizBoleana[i][j] = true;
+	for (int i = 0; i < 15; i++) { // esto es para definir los valores predeterminados
+		for (int j = 0; j < 15; j++) {
+			if ((i + j) == 14) { //diagonal invertida
+				if ((i == 0 && j == 14) || (j == 0 && i == 14)) { matrizValores[i][j] = 1; }
+				else if ((i == 5 || j == 5) && (i == 9 || j == 9)) { matrizValores[i][j] = 2; }
+				else if ((i == 6 || j == 6) && (i == 8 || j == 8)) { matrizValores[i][j] = 4; }
+				else { matrizValores[i][j] = 3; }
+			}
+			else if (i == j) { //diagonal normal
+				if ((i == 0) || (i == 14)) { matrizValores[i][j] = 1; }
+				else if (i == 5 || i == 9) { matrizValores[i][j] = 2; }
+				else if (i == 6 || i == 8) { matrizValores[i][j] = 4; }
+				else { matrizValores[i][j] = 3; }
+			}
+			else if (i == 0 || i == 14) {
+				if (j == 3 || j == 11) { matrizValores[i][j] = 4; }
+				else if (j == 7) { matrizValores[i][j] = 1; }
+			}
+			else if (i == 1 || i == 13) {
+				if (j == 5 || j == 9) { matrizValores[i][j] = 2; }
+			}
+			else if (i == 2 || i == 12) {
+				if (j == 6 || j == 8) { matrizValores[i][j] = 4; }
+			}
+
+			else if (i == 3 || i == 11) {
+				if (j == 0 || j == 14 || j == 7) { matrizValores[i][j] = 4; }
+			}
+			else if (i == 5 || i == 9) {
+				if (j == 1 || j == 13) { matrizValores[i][j] = 2; }
+			}
+			else if (i == 6 || i == 8) {
+				if (j == 2 || j == 12) { matrizValores[i][j] = 4; }
+			}
+			else if (i == 7) {
+				if (j == 0 || j == 14) { matrizValores[i][j] = 1; }
+				else if (j == 3 || j == 11) { matrizValores[i][j] = 4; }
+			}
 		}
 	}
 }
-bool Tablero::insertarFicha(int f,char c,string letra) {
+void Tablero::insertarFicha(int f,char c,string letra) {
 	if (can < tam) {
 		string le;
 		if (letra == "CH" || letra == "LL" || letra == "NY" || letra == "RR") {
@@ -73,15 +107,8 @@ bool Tablero::insertarFicha(int f,char c,string letra) {
 		else {
 			le = " " + toUpper(letra) + "  ";
 		}
-		if (matrizBoleana[7][7] == false) { //si la matriz esta vacia
-			tablero[f - 1][charXColumna(c)] = le;
-			can++;
-		}
-		else {
-			if ((matrizBoleana[(f - 1) - 1][(charXColumna(c))] == true) || (matrizBoleana[(f - 1)][(charXColumna(c)) - 1] == true)) {
-				/**/
-			}
-		}
+		tablero[f - 1][charXColumna(c)] = le;
+		can++;
 	}
 }
 void Tablero::imprimeTablero(){
@@ -237,6 +264,9 @@ void Tablero::imprimeScrabble() {
 	cout << "\t|_____  |  |  |      |  ___   /   |  ___  |  | ----/_  | ----/_   |  |     |   ___| " << endl;
 	cout << "\t _____| |  |  |___   |  |  |  |   | |   | |  |  []   | |  []   |  |  |___  |  |____ " << endl;
 	cout << "\t|_______|  |______|  |__|  |__|   |_|   |_|  |_______/ |_______/  |______| |_______|" << endl;
+}
+bool Tablero::verificaPosicion(string palabra){
+	return true;
 }
 string Tablero::getTablero() {
 	return **tablero;

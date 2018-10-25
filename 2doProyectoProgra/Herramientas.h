@@ -6,6 +6,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <cctype>
 #include <Windows.h>
 #include <fstream>
 
@@ -19,7 +20,6 @@ public:
 	 static string toUpper(string);
 	 static int charXColumna(char);
 	 static int valorFicha(string = "letra");
-	 static void turnoJugador(int t,string n);
 	 static bool verificaMatriz(string m[100][100]);
 	 static void instrucciones1();
 	 static void instrucciones2();
@@ -28,6 +28,7 @@ public:
 	 static void escribirFichero(string = "nombre del archivo",string = "texto");
 	 static void appendFichero(string = "nombre del archivo",string = "texto");
 	 static string randomFichas();
+	 static string convierteString(char);
 	 static void borrarFichero(string = "nombre del archivo");
 };
 

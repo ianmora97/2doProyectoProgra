@@ -17,6 +17,7 @@ public:
 	void setNombre(string);
 	void insertarficha(Ficha *ficha);
 	void sacarFicha(string);
+	void turnoJugador();
 	void guardarPuntaje();
 	string sacarPuntaje();
 	ListaFichas *getLista();
