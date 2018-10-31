@@ -3,7 +3,7 @@
 #include "Herramientas.h"
 using namespace std;
 
-class Ficha : public Herramientas{
+class Ficha {
 protected:
 	string letra;
 	int valor;

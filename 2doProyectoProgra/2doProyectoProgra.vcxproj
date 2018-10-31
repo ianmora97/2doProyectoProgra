@@ -116,8 +116,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Control.h" />
+    <ClInclude Include="Diccionario.h" />
     <ClInclude Include="Ficha.h" />
     <ClInclude Include="Funcionalidad.h" />
+    <ClInclude Include="Guardar.h" />
     <ClInclude Include="Herramientas.h" />
     <ClInclude Include="Interfaz.h" />
     <ClInclude Include="Jugador.h" />
@@ -127,8 +129,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control.cpp" />
+    <ClCompile Include="Diccionario.cpp" />
     <ClCompile Include="Ficha.cpp" />
     <ClCompile Include="Funcionalidad.cpp" />
+    <ClCompile Include="Guardar.cpp" />
     <ClCompile Include="Herramientas.cpp" />
     <ClCompile Include="Interfaz.cpp" />
     <ClCompile Include="Jugador.cpp" />

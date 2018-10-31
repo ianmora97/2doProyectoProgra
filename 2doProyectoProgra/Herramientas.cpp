@@ -1,5 +1,5 @@
 #include "Herramientas.h"
-void Herramientas::gotoxy(int x, int y) {
+void gotoxy(int x, int y) {
 	HANDLE hcon;
 	hcon = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD dwPos;
@@ -7,8 +7,8 @@ void Herramientas::gotoxy(int x, int y) {
 	dwPos.Y = y;
 	SetConsoleCursorPosition(hcon, dwPos);
 }
-void Herramientas::color(int color) {SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);}
-int Herramientas::evaluarInt(int max, int min) {
+void color(int color) { SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color); }
+int evaluarInt(int max, int min) {
 	int valor;
 	bool ciclo = true;
 	while (ciclo == true) {
@@ -36,10 +36,11 @@ int Herramientas::evaluarInt(int max, int min) {
 	}
 	return valor;
 }
-char Herramientas::evaluarChar() {
+char evaluarChar() {
 	char valor;
 	bool ciclo = true;
 	while (ciclo == true) {
+		color(15);
 		cout << " > ";
 		color(11);
 		if (!(cin >> valor)) {
@@ -55,14 +56,14 @@ char Herramientas::evaluarChar() {
 	}
 	return valor;
 }
-string Herramientas::toUpper(string palabra) {
+string toUpper(string palabra) {
 	for (int i = 0; i < palabra.length(); i++) {
 		palabra[i] = toupper(palabra[i]);
 	}
 	return palabra;
 }
-int Herramientas::charXColumna(char col) {
-	int num;
+int charXColumna(char col) {
+	int num=0;
 	if (col == 'A' || col == 'a') {num = 0;}
 	else if (col == 'B' || col == 'b') {num = 1;}
 	else if (col == 'C' || col == 'c') {num = 2;}
@@ -80,7 +81,7 @@ int Herramientas::charXColumna(char col) {
 	else if (col == 'O' || col == 'o') {num = 14;}
 	return num;
 }
-int Herramientas::valorFicha(string f) {
+int valorFicha(string f) {
 	int num;
 	f = toUpper(f);
 	if (f == "A" || f == "I" || f == "O" || f == "R" || f == "S" || f == "T" || f == "U") {
@@ -112,7 +113,7 @@ int Herramientas::valorFicha(string f) {
 	}
 	return num;
 }
-void Herramientas::leerFichero(string nombre) {
+void leerFichero(string nombre) {
 	string texto;
 	ifstream archivo;
 	archivo.open(nombre.c_str(), ios::in);
@@ -127,7 +128,7 @@ void Herramientas::leerFichero(string nombre) {
 	}
 	archivo.close();
 }
-void Herramientas::escribirFichero(string nombre, string texto) {
+void escribirFichero(string nombre, string texto) {
 	ofstream archivo;
 	archivo.open(nombre.c_str(), ios::out);
 	if (archivo.is_open()) {
@@ -138,7 +139,7 @@ void Herramientas::escribirFichero(string nombre, string texto) {
 	}
 	archivo.close();
 }
-void Herramientas::appendFichero(string nombre,string texto) {
+void appendFichero(string nombre,string texto) {
 	ofstream archivo;
 	archivo.open(nombre.c_str(), ios::app);
 	if (archivo.is_open()) {
@@ -149,33 +150,27 @@ void Herramientas::appendFichero(string nombre,string texto) {
 	}
 	archivo.close();
 }
-void Herramientas::borrarFichero(string nombre) {
+void borrarFichero(string nombre) {
 	remove(nombre.c_str());
 }
-bool Herramientas::verificaMatriz(string m[100][100]) {
+bool verificaMatriz(string m[100][100]) {
 	
 	
 	return true;
 }
-string Herramientas::randomFichas() {
+string randomFichas() {
 	string ficha;
 	stringstream p;
 	int random;
-	random = rand() % 29; // entre 0 - 28
+	random = rand() % 27; // entre 0 - 28
 	if (random == 22) { //la W = Ñ
-		p << char(165);
+		p << "Ñ";
 	}
 	else if (random == 26) { //la [ = -
 		p << "-";
 	}
-	else if (random == 27) { // la \ = LL
-		p << "LL";
-	}
-	else if (random == 28) { // la ] = RR
-		p << "RR";
-	}
 	else if (random == 10) { // la K = CH
-		p << "CH";
+		p << "A";
 	}
 	else {
 		p << char(65 + random);
@@ -183,12 +178,12 @@ string Herramientas::randomFichas() {
 	ficha = p.str();
 	return ficha;
 }
-string Herramientas::convierteString(char c){
+string convierteString(char c){
 	stringstream p;
 	p << c;
 	return p.str();
 }
-void Herramientas::instrucciones2() {
+void instrucciones2() {
 
 	system("CLS");
 	color(15);
@@ -264,7 +259,7 @@ void Herramientas::instrucciones2() {
 
 	cin.get();
 }
-void Herramientas::instrucciones3() {
+void instrucciones3() {
 
 	system("CLS");
 	color(15);
@@ -316,7 +311,7 @@ void Herramientas::instrucciones3() {
 	cout << endl;
 	cin.get();
 }
-void Herramientas::instrucciones1() {
+void instrucciones1() {
 
 	system("CLS");
 	color(15);

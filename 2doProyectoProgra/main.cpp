@@ -5,6 +5,5 @@ int main() {
 	system("mode con: cols=110 lines=40");
 	Control *c = new Control;
 	c->opciones();
-	cin.get();
 	return 0;
 };

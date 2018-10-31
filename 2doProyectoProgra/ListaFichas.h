@@ -3,7 +3,7 @@
 #include "NodoFicha.h"
 using namespace std;
 
-class ListaFichas : public Herramientas{
+class ListaFichas{
 private:
 	NodoFicha *primero;
 	NodoFicha *actual;
@@ -18,6 +18,7 @@ public:
 	int getCantidadNodos();
 	void sumaNodo();
 	string toString();
+	string letras();
 	void getLetras();
 	bool limpiarLista();
 	~ListaFichas();

@@ -2,7 +2,7 @@
 #define INTERFAZ_H
 #include "Herramientas.h"
 using namespace std;
-class Interfaz : public Herramientas{
+class Interfaz {
 public:
 	Interfaz();
 	int menu();

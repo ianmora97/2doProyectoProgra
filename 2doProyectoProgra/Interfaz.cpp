@@ -110,13 +110,13 @@ void Interfaz::cuadros() {
 		for (int j = 0; j < 110; j++) {
 			col = rand() % 110;
 			if ((i+j)%2 == 0) {
-				Herramientas::gotoxy(col, i); Herramientas::color(221); cout << " ";
+				gotoxy(col, i); color(221); cout << " ";
 			}
 			else {
-				Herramientas::gotoxy(col, i); Herramientas::color(15); cout << " ";
+				gotoxy(col, i); color(15); cout << " ";
 			}
 		}
 	}
-	Herramientas::color(15);
+	color(15);
 }
 Interfaz::~Interfaz(){}

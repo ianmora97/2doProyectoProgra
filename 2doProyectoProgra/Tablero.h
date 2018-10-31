@@ -2,18 +2,22 @@
 #define TABLERO_H
 #include "Herramientas.h"
 using namespace std;
-class Tablero : public Herramientas{
+class Tablero{
 public:
 	Tablero();
 	void insertarFicha(int,int,string);
 	void imprimeTablero();
 	void imprimeScrabble();
-	bool verificaPosicion(string palabra);
+	bool verificaPosicion(int x, int y);
+	bool verificarCruz(int i, int j);
+	int valores(int f,int c);
+	string agarraLetra(int f[],int c[]);
 	string getTablero();
 	~Tablero();
 private:
 	string **tablero;
 	int matrizValores[15][15];
+	int matrizBoleana[15][15];
 	int fila, columna;
 	int can, tam;
 };

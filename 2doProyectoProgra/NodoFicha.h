@@ -3,7 +3,7 @@
 #include "Ficha.h"
 using namespace std;
 
-class NodoFicha : public Herramientas{
+class NodoFicha{
 private:
 	Ficha *ficha;
 	NodoFicha *sig;

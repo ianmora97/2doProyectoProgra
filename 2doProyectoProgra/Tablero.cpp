@@ -8,6 +8,10 @@ Tablero::Tablero(){
 	for (int i = 0; i < fila; i++) {
 		tablero[i] = new string[columna];
 	}
+	for (int a = 0; a < fila; a++)
+		for (int b = 0; b < columna; b++)
+			matrizBoleana[a][b] = false;
+
 	for (int i = 0; i < 15; i++) { // esto es para definir los valores predeterminados
 		for (int j = 0; j < 15; j++) {
 			if ((i + j) == 14) { //diagonal invertida
@@ -37,7 +41,6 @@ Tablero::Tablero(){
 				if (j == 6 || j == 8) {tablero[i][j] = " 2L ";}
 				else {tablero[i][j] = "    ";}
 			}
-
 			else if (i == 3 || i == 11) {
 				if (j == 0 || j == 14 || j == 7) {tablero[i][j] = " 2L ";}
 				else {tablero[i][j] = "    ";}
@@ -57,13 +60,13 @@ Tablero::Tablero(){
 			}else {tablero[i][j] = "    ";}
 		}
 	}
-	for (int i = 0; i < 15; i++) { // esto es para definir los valores predeterminados
+	for (int i = 0; i < 15; i++) { //matriz de valores
 		for (int j = 0; j < 15; j++) {
 			if ((i + j) == 14) { //diagonal invertida
-				if ((i == 0 && j == 14) || (j == 0 && i == 14)) { matrizValores[i][j] = 1; }
-				else if ((i == 5 || j == 5) && (i == 9 || j == 9)) { matrizValores[i][j] = 2; }
-				else if ((i == 6 || j == 6) && (i == 8 || j == 8)) { matrizValores[i][j] = 4; }
-				else { matrizValores[i][j] = 3; }
+				if ((i == 0 && j == 14) || (j == 0 && i == 14)) { matrizValores[i][j] = 1; } //triple palabra
+				else if ((i == 5 || j == 5) && (i == 9 || j == 9)) { matrizValores[i][j] = 2; } //triple letra
+				else if ((i == 6 || j == 6) && (i == 8 || j == 8)) { matrizValores[i][j] = 4; } //doble letra
+				else { matrizValores[i][j] = 3; } //doble palabra
 			}
 			else if (i == j) { //diagonal normal
 				if ((i == 0) || (i == 14)) { matrizValores[i][j] = 1; }
@@ -81,7 +84,6 @@ Tablero::Tablero(){
 			else if (i == 2 || i == 12) {
 				if (j == 6 || j == 8) { matrizValores[i][j] = 4; }
 			}
-
 			else if (i == 3 || i == 11) {
 				if (j == 0 || j == 14 || j == 7) { matrizValores[i][j] = 4; }
 			}
@@ -108,6 +110,7 @@ void Tablero::insertarFicha(int f,int c,string letra) {
 			le = " " + toUpper(letra) + "  ";
 		}
 		tablero[f - 1][c] = le;
+		matrizBoleana[f - 1][c] = true;
 		can++;
 	}
 }
@@ -265,8 +268,31 @@ void Tablero::imprimeScrabble() {
 	cout << "\t _____| |  |  |___   |  |  |  |   | |   | |  |  []   | |  []   |  |  |___  |  |____ " << endl;
 	cout << "\t|_______|  |______|  |__|  |__|   |_|   |_|  |_______/ |_______/  |______| |_______|" << endl;
 }
-bool Tablero::verificaPosicion(string palabra){
-	return true;
+bool Tablero::verificaPosicion(int x,int y){
+	if (matrizBoleana[x][y] == true) {
+		return true;
+	}
+	return false;
+}
+bool Tablero::verificarCruz(int i, int j) {
+	i--;
+	cout << i << ", " << j << endl;
+	if (matrizBoleana[i - 1][j] == true ||
+		matrizBoleana[i + 1][j] == true ||
+		matrizBoleana[i][j - 1] == true ||
+		matrizBoleana[i][j + 1] == true ) {
+		return true;
+	}
+	return false;
+}
+string Tablero::agarraLetra(int f[], int c[]) {
+	string letra;
+
+
+	return letra;
+}
+int Tablero::valores(int f, int c) {
+	return matrizValores[f-1][c];
 }
 string Tablero::getTablero() {
 	return **tablero;

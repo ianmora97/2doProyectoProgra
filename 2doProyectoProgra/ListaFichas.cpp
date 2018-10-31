@@ -29,11 +29,13 @@ bool ListaFichas::sacarFicha(string letra){ //metodo como el de eliminar pero bu
 		else if (anterior == NULL) { //si el elemento es el primero
 			primero = primero->getSig();
 			delete aux;
+			cantidadNodos--;
 			return true;
 		}
 		else { //si el elemento se encuentra en la lista
 			anterior->setSig(aux->getSig());
 			delete aux;
+			cantidadNodos--;
 			return true;
 		}
 	}
@@ -63,6 +65,15 @@ string ListaFichas::toString() {
 	actual = primero;
 	while (actual != NULL) {
 		p << actual->toString()<<endl;
+		actual = actual->getSig();
+	}
+	return p.str();
+}
+string ListaFichas::letras() {
+	stringstream p;
+	actual = primero;
+	while (actual != NULL) {
+		p << actual->getFicha()->getLetra() <<" ";
 		actual = actual->getSig();
 	}
 	return p.str();

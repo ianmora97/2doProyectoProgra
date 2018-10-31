@@ -5,8 +5,9 @@
 #include "Herramientas.h"
 #include "Funcionalidad.h"
 #include "Interfaz.h"
+#include "Diccionario.h"
 using namespace std;
-class Control : public Herramientas {
+class Control{
 public:
 	Control();
 	void opciones();
