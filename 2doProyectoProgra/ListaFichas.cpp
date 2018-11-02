@@ -39,6 +39,7 @@ bool ListaFichas::sacarFicha(string letra){ //metodo como el de eliminar pero bu
 			return true;
 		}
 	}
+	return false;
 }
 bool ListaFichas::encotrada(string letra){ //busca una ficha y retorna true si la encontro : false
 	actual = primero;

@@ -5,7 +5,7 @@
 #include "Herramientas.h"
 #include "Funcionalidad.h"
 #include "Interfaz.h"
-#include "Diccionario.h"
+#include "ListaDiccionario.h"
 using namespace std;
 class Control{
 public:

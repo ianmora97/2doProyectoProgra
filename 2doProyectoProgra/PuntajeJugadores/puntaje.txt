@@ -1,9 +1,14 @@
-IAn
-3
-1
-Ina
-0
-1
-IAn
-6
-1
+	 ---------------------
+	|Puntajes de Jugadores|
+	 ---------------------
+Nombre Jugador    Puntaje   Cantidad De Victorias
+      |              |               |
+      v              v               v
+  IAn            4          1
+
+  IAn            4          1
+
+  IAn            0          1
+
+  Ambar               8             1
+

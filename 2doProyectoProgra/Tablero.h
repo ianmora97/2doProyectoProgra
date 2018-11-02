@@ -11,7 +11,7 @@ public:
 	bool verificaPosicion(int x, int y);
 	bool verificarCruz(int i, int j);
 	int valores(int f,int c);
-	string agarraLetra(int f[],int c[]);
+	int bono(int f[],int c[], string l[], int cant);
 	string getTablero();
 	~Tablero();
 private:

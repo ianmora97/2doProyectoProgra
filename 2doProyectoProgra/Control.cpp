@@ -4,22 +4,20 @@ void Control::opciones() {
 	color(15);
 	//---Variables de ciclos---
 	srand(time(NULL));
+	Funcionalidad *game = new Funcionalidad;
 	Diccionario *dic = new Diccionario;
-	dic->readFile();
-
+	game->readFile(dic);
 	bool _cicloMenu = true;
 	while (_cicloMenu == true) {
 		Interfaz *interfaz = new Interfaz;
 		ListaFichas *bolsaFichas = new ListaFichas;
 		ListaFichas *listaTablero = new ListaFichas;
 		Tablero *tablero = new Tablero;
-		Funcionalidad *game = new Funcionalidad;
 		Ficha *ficha;
 		Jugador *jugador1 = new Jugador("indef");
 		Jugador *jugador2 = new Jugador("indef");
 		Jugador *jugador3 = new Jugador("indef");
 		Jugador *jugador4 = new Jugador("indef");
-
 		system("cls");
 		game->llenarLista(bolsaFichas); // llena la lista
 		color(13);
@@ -37,7 +35,7 @@ void Control::opciones() {
 				cout << "\t___________________________________________________________\n";
 				game->setJugador(jugador1, bolsaFichas, 1);
 				game->setJugador(jugador2, bolsaFichas, 2);
-				cin.get();
+				pause();
 				system("cls");
 				int turno = 0;
 				int pasar = 0;
@@ -59,41 +57,26 @@ void Control::opciones() {
 
 							//nuevo
 							if (!(tablero->verificaPosicion(7,7))) {
-								bool hv;
-								bool cicloLetra = true;
-								while (cicloLetra) {
-									do {
-										palabra = game->pidePalabra();
-									} while (!game->verificaDiccionario(dic, palabra));
-									if (game->verificaLetras(jugador1, palabra)) {
-										hv = game->horiVert();
-										gotoxy(72, 20);
-										if (game->ingresarPalabra(tablero, palabra, 8, 'H', hv, jugador1, listaTablero)) {
-											system("cls");
-											jugador1->turnoJugador();
-											tablero->imprimeTablero();
-											game->meteFichas(jugador1, bolsaFichas, palabra.length());
-											jugador1->getLista()->getLetras();
-											cicloLetra = false;
-											gotoxy(72, 10);
-											cout << "Palabra ingresada correctamente!";
-											gotoxy(72, 11); 
-											cout << toUpper(palabra);
-											gotoxy(72, 12); cin.get();
-										}
-									}
+								if (game->ingresarPalabra(tablero, bolsaFichas, listaTablero, jugador1, dic)) {
+									system("cls");
+									jugador1->turnoJugador();
+									tablero->imprimeTablero();
+									jugador1->getLista()->getLetras();
+									cin.get();
+									turno++;
 								}
 							}
 							else {
-								//metodo para ingresar ficha por ficha
-								cout<<game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador1, dic);
-								cin.get();
-								cin.get();
+								if (game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador1, dic)) {
+									system("cls");
+									jugador1->turnoJugador();
+									tablero->imprimeTablero();
+									jugador1->getLista()->getLetras();
+									cin.get();
+									turno++;
+								}
 							}
-							
-
 							//!nuevo
-							turno++;
 						}
 						else if (opcGame == 2) {
 							system("cls");
@@ -110,7 +93,6 @@ void Control::opciones() {
 						else if (opcGame == 4) {
 							pasar = 2;
 						}
-						
 					}
 					else {
 						system("cls");
@@ -123,45 +105,30 @@ void Control::opciones() {
 							jugador2->turnoJugador();
 							tablero->imprimeTablero();
 							jugador2->getLista()->getLetras();
-							//nuevo
 							if (!(tablero->verificaPosicion(7, 7))) {
-								bool hv;
-								bool cicloLetra = true;
-								while (cicloLetra) {
-									do {
-										palabra = game->pidePalabra();
-									} while (!game->verificaDiccionario(dic, palabra));
-									if (game->verificaLetras(jugador2, palabra)) {
-										hv = game->horiVert();
-										gotoxy(72, 20);
-										if (game->ingresarPalabra(tablero, palabra, 8, 'H', hv, jugador2, listaTablero)) {
-											system("cls");
-											jugador2->turnoJugador();
-											tablero->imprimeTablero();
-											game->meteFichas(jugador2, bolsaFichas, palabra.length());
-											jugador2->getLista()->getLetras();
-											cicloLetra = false;
-											gotoxy(72, 10);
-											cout << "Palabra ingresada correctamente!";
-											gotoxy(72, 11);
-											cout << toUpper(palabra);
-											gotoxy(72, 12); cin.get();
-										}
-									}
+								if (game->ingresarPalabra(tablero, bolsaFichas, listaTablero, jugador2, dic)) {
+									system("cls");
+									jugador2->turnoJugador();
+									tablero->imprimeTablero();
+									jugador2->getLista()->getLetras();
+									cin.get();
+									turno++;
 								}
 							}
 							else {
-								//metodo para ingresar ficha por ficha
-								cout << game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador2, dic);
-								cin.get();
-								cin.get();
+								if (game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador2, dic)) {
+									system("cls");
+									jugador2->turnoJugador();
+									tablero->imprimeTablero();
+									jugador2->getLista()->getLetras();
+									cin.get();
+									turno++;
+								}
 							}
-							//!nuevo
-							turno++;
 						}
 						else if (opcGame == 2) {
 							system("cls");
-							jugador1->turnoJugador();
+							jugador2->turnoJugador();
 							tablero->imprimeTablero();
 							jugador2->cambiarFichas(bolsaFichas);
 							turno++;
@@ -178,10 +145,345 @@ void Control::opciones() {
 				}
 			}
 			else if (_cantidadJugadores == 3) {
+				cout << "\t___________________________________________________________\n";
+				game->setJugador(jugador1, bolsaFichas, 1);
+				game->setJugador(jugador2, bolsaFichas, 2);
+				game->setJugador(jugador3, bolsaFichas, 3);
+				pause();
+				system("cls");
+				int turno = 1;
+				int pasar = 0;
+				string palabra;
+				while (!(bolsaFichas->vacia()) && !(jugador1->getLista()->vacia()) && !(jugador2->getLista()->vacia()) && !(jugador3->getLista()->vacia()) && pasar != 3) {
+					if (turno == 1) {
+						system("cls");
+						jugador1->turnoJugador();
+						tablero->imprimeTablero();
+						jugador1->getLista()->getLetras();
+						int opc = game->menu();
+						switch (opc) {
+						case 1:
+							if (!(tablero->verificaPosicion(7, 7))) {
+								system("cls");
+								jugador1->turnoJugador();
+								tablero->imprimeTablero();
+								jugador1->getLista()->getLetras();
+								game->ingresarPalabra(tablero, bolsaFichas, listaTablero, jugador1, dic);
+								
+								turno++;
+							}
+							else {
+								system("cls");
+								jugador1->turnoJugador();
+								tablero->imprimeTablero();
+								jugador1->getLista()->getLetras();
+								game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador1, dic);
 
+								turno++;
+							}
+							break;
+						case 2:
+							system("cls");
+							jugador1->turnoJugador();
+							tablero->imprimeTablero();
+							jugador1->cambiarFichas(bolsaFichas);
+							turno++;
+							break;
+						case 3:
+							system("cls");
+							turno++;
+							pasar++;
+							break;
+						case 4:
+							pasar = 3;
+						default:
+							break;
+						}
+					}
+					if (turno == 2) {
+						system("cls");
+						jugador2->turnoJugador();
+						tablero->imprimeTablero();
+						jugador2->getLista()->getLetras();
+						int opc = game->menu();
+						switch (opc) {
+						case 1:
+							if (!(tablero->verificaPosicion(7, 7))) {
+								system("cls");
+								jugador2->turnoJugador();
+								tablero->imprimeTablero();
+								jugador2->getLista()->getLetras();
+								game->ingresarPalabra(tablero, bolsaFichas, listaTablero, jugador2, dic);
+								
+								turno++;
+							}
+							else {
+								system("cls");
+								jugador2->turnoJugador();
+								tablero->imprimeTablero();
+								jugador2->getLista()->getLetras();
+								game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador2, dic);
+								turno++;
+							}
+							break;
+						case 2:
+							system("cls");
+							jugador2->turnoJugador();
+							tablero->imprimeTablero();
+							jugador2->cambiarFichas(bolsaFichas);
+							turno++;
+							break;
+						case 3:
+							system("cls");
+							turno++;
+							pasar++;
+							break;
+						case 4:
+							pasar = 3;
+						default:
+							break;
+						}
+					}
+					if (turno == 3) {
+						system("cls");
+						jugador3->turnoJugador();
+						tablero->imprimeTablero();
+						jugador3->getLista()->getLetras();
+						int opc = game->menu();
+						switch (opc) {
+						case 1:
+							if (!(tablero->verificaPosicion(7, 7))) {
+								system("cls");
+								jugador3->turnoJugador();
+								tablero->imprimeTablero();
+								jugador3->getLista()->getLetras();
+								game->ingresarPalabra(tablero, bolsaFichas, listaTablero, jugador3, dic);
+								
+								turno = 1;
+							}
+							else {
+								game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador3, dic);
+								system("cls");
+								jugador3->turnoJugador();
+								tablero->imprimeTablero();
+								jugador3->getLista()->getLetras();
+								game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador3, dic);
+								turno = 1;
+							}
+							break;
+						case 2:
+							system("cls");
+							jugador3->turnoJugador();
+							tablero->imprimeTablero();
+							jugador3->cambiarFichas(bolsaFichas);
+							turno = 1;
+							break;
+						case 3:
+							system("cls");
+							turno = 1;
+							pasar == 2 ? pasar++ : pasar = 0;
+							break;
+						case 4:
+							pasar = 3;
+						default:
+							break;
+						}
+					}
+				}
 			}
 			else if (_cantidadJugadores == 4) {
-
+				cout << "\t___________________________________________________________\n";
+				game->setJugador(jugador1, bolsaFichas, 1);
+				game->setJugador(jugador2, bolsaFichas, 2);
+				game->setJugador(jugador3, bolsaFichas, 3);
+				game->setJugador(jugador4, bolsaFichas, 4);
+				pause();
+				system("cls");
+				int turno = 0;
+				int pasar = 0;
+				string palabra;
+				while (!(bolsaFichas->vacia()) && !(jugador1->getLista()->vacia()) && !(jugador2->getLista()->vacia()) && !(jugador3->getLista()->vacia()) && !(jugador4->getLista()->vacia()) && pasar != 4) {
+					if (turno == 1) {
+						system("cls");
+						jugador1->turnoJugador();
+						tablero->imprimeTablero();
+						jugador1->getLista()->getLetras();
+						int opc = game->menu();
+						switch (opc) {
+						case 1:
+							if (!(tablero->verificaPosicion(7, 7))) {
+								system("cls");
+								jugador1->turnoJugador();
+								tablero->imprimeTablero();
+								jugador1->getLista()->getLetras();
+								game->ingresarPalabra(tablero, bolsaFichas, listaTablero, jugador1, dic);
+								
+								turno++;
+							}
+							else {
+								game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador1, dic);
+								system("cls");
+								jugador1->turnoJugador();
+								tablero->imprimeTablero();
+								jugador1->getLista()->getLetras();
+								game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador1, dic);
+								turno++;
+							}
+							break;
+						case 2:
+							system("cls");
+							jugador2->turnoJugador();
+							tablero->imprimeTablero();
+							jugador1->cambiarFichas(bolsaFichas);
+							turno++;
+							break;
+						case 3:
+							system("cls");
+							turno++;
+							pasar++;
+							break;
+						case 4:
+							pasar = 4;
+						default:
+							break;
+						}
+					}
+					if (turno == 2) {
+						system("cls");
+						jugador2->turnoJugador();
+						tablero->imprimeTablero();
+						jugador2->getLista()->getLetras();
+						int opc = game->menu();
+						switch (opc) {
+						case 1:
+							if (!(tablero->verificaPosicion(7, 7))) {
+								system("cls");
+								jugador2->turnoJugador();
+								tablero->imprimeTablero();
+								jugador2->getLista()->getLetras();
+								game->ingresarPalabra(tablero, bolsaFichas, listaTablero, jugador2, dic);
+								
+								turno++;
+							}
+							else {
+								
+								system("cls");
+								jugador2->turnoJugador();
+								tablero->imprimeTablero();
+								jugador2->getLista()->getLetras();
+								game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador2, dic);
+								turno++;
+							}
+							break;
+						case 2:
+							system("cls");
+							jugador2->turnoJugador();
+							tablero->imprimeTablero();
+							jugador2->cambiarFichas(bolsaFichas);
+							turno++;
+							break;
+						case 3:
+							system("cls");
+							turno++;
+							pasar++;
+							break;
+						case 4:
+							pasar = 4;
+						default:
+							break;
+						}
+					}
+					if (turno == 3) {
+						system("cls");
+						jugador3->turnoJugador();
+						tablero->imprimeTablero();
+						jugador3->getLista()->getLetras();
+						int opc = game->menu();
+						switch (opc) {
+						case 1:
+							if (!(tablero->verificaPosicion(7, 7))) {
+								system("cls");
+								jugador3->turnoJugador();
+								tablero->imprimeTablero();
+								jugador3->getLista()->getLetras();
+								game->ingresarPalabra(tablero, bolsaFichas, listaTablero, jugador3, dic);
+								
+								turno++;
+							}
+							else {
+								
+								system("cls");
+								jugador3->turnoJugador();
+								tablero->imprimeTablero();
+								jugador3->getLista()->getLetras();
+								game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador3, dic);
+								turno++;
+							}
+							break;
+						case 2:
+							system("cls");
+							jugador3->turnoJugador();
+							tablero->imprimeTablero();
+							jugador3->cambiarFichas(bolsaFichas);
+							turno++;
+							break;
+						case 3:
+							system("cls");
+							turno++;
+							pasar++;
+							break;
+						case 4:
+							pasar = 4;
+						default:
+							break;
+						}
+					}
+					if (turno == 4) {
+						system("cls");
+						jugador4->turnoJugador();
+						tablero->imprimeTablero();
+						jugador4->getLista()->getLetras();
+						int opc = game->menu();
+						switch (opc) {
+						case 1:
+							if (!(tablero->verificaPosicion(7, 7))) {
+								system("cls");
+								jugador4->turnoJugador();
+								tablero->imprimeTablero();
+								jugador4->getLista()->getLetras();
+								game->ingresarPalabra(tablero, bolsaFichas, listaTablero, jugador4, dic);
+								
+								turno = 1;
+							}
+							else {
+								
+								system("cls");
+								jugador4->turnoJugador();
+								tablero->imprimeTablero();
+								jugador4->getLista()->getLetras();
+								game->ingresarFichaXFicha(tablero, bolsaFichas, listaTablero, jugador4, dic);
+								turno = 1;
+							}
+							break;
+						case 2:
+							system("cls");
+							jugador4->turnoJugador();
+							tablero->imprimeTablero();
+							jugador4->cambiarFichas(bolsaFichas);
+							turno = 1;
+							break;
+						case 3:
+							system("cls");
+							turno = 1;
+							pasar == 3 ? pasar++ : pasar = 0;
+							break;
+						case 4:
+							pasar = 4;
+						default:
+							break;
+						}
+					}
+				}
 			}
 			system("cls");
 			cout << "El ganador es: " << endl;
@@ -199,7 +501,9 @@ void Control::opciones() {
 			game->leerPuntaje();
 		}
 		else if (opc == 4) {
-
+		system("cls");
+		leerFichero("Palabra/palabrasCreadas.txt");
+		pause();
 		}
 		else if (opc == 0) {
 			_cicloMenu = false;

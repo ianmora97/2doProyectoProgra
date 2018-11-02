@@ -103,12 +103,7 @@ Tablero::Tablero(){
 void Tablero::insertarFicha(int f,int c,string letra) {
 	if (can < tam) {
 		string le;
-		if (letra == "CH" || letra == "LL" || letra == "RR") {
-			le = " " + toUpper(letra) + " ";
-		}
-		else {
-			le = " " + toUpper(letra) + "  ";
-		}
+		le = " " + toUpper(letra) + "  ";
 		tablero[f - 1][c] = le;
 		matrizBoleana[f - 1][c] = true;
 		can++;
@@ -261,12 +256,12 @@ void Tablero::imprimeTablero(){
 	cout << endl;
 }
 void Tablero::imprimeScrabble() {
-	cout << "\t _______    ______    ________     _______    ______    ______     __       _______ " << endl;
-	cout << "\t|  _____|  |   ___|  |   __   )   |  ___  |  |      |  |      |   |  |     |   ____|" << endl;
+	cout << "\t _______    ______    ______       _______    ______    ______     __       _______ " << endl;
+	cout << "\t|  _____|  |   ___|  |   __  \\    |  ___  |  |      |  |      |   |  |     |   ____|" << endl;
 	cout << "\t| |_____   |  |      |  |__|  |   | |___| |  |  []  /  |  []  /   |  |     |  |___  " << endl;
-	cout << "\t|_____  |  |  |      |  ___   /   |  ___  |  | ----/_  | ----/_   |  |     |   ___| " << endl;
-	cout << "\t _____| |  |  |___   |  |  |  |   | |   | |  |  []   | |  []   |  |  |___  |  |____ " << endl;
-	cout << "\t|_______|  |______|  |__|  |__|   |_|   |_|  |_______/ |_______/  |______| |_______|" << endl;
+	cout << "\t|_____  |  |  |      |  ___  /    |  ___  |  | ----/_  | ----/_   |  |     |   ___| " << endl;
+	cout << "\t _____| |  |  |___   |  |  | |    | |   | |  |  []   | |  []   |  |  |___  |  |____ " << endl;
+	cout << "\t|_______|  |______|  |__|  |_|    |_|   |_|  |_______/ |_______/  |______| |_______|" << endl;
 }
 bool Tablero::verificaPosicion(int x,int y){
 	if (matrizBoleana[x][y] == true) {
@@ -276,7 +271,6 @@ bool Tablero::verificaPosicion(int x,int y){
 }
 bool Tablero::verificarCruz(int i, int j) {
 	i--;
-	cout << i << ", " << j << endl;
 	if (matrizBoleana[i - 1][j] == true ||
 		matrizBoleana[i + 1][j] == true ||
 		matrizBoleana[i][j - 1] == true ||
@@ -285,11 +279,33 @@ bool Tablero::verificarCruz(int i, int j) {
 	}
 	return false;
 }
-string Tablero::agarraLetra(int f[], int c[]) {
-	string letra;
-
-
-	return letra;
+int Tablero::bono(int f[], int c[], string l[], int cant) {
+	int puntaje=0;
+	bool verDoble = false, verTriple = false;
+	for (int i = 0; i < cant; i++) {
+		if (valores(f[i],c[i]) == 1) { // Hay una casilla con triple de palabra 3P
+			verTriple = true;
+		}
+		else if (valores(f[i], c[i]) == 3) { // Hay una casilla con doble de palabra 2P
+			verDoble = true;
+		}
+		if (valores(f[i], c[i]) == 2) { // Hay una casilla con 3 veces la letra
+			puntaje += (valorFicha(l[i]) * 3);
+		}
+		else if (valores(f[i], c[i]) == 4) { // Hay una casilla con 2 veces la letra
+			puntaje += (valorFicha(l[i]) * 2);
+		}
+		else {
+			puntaje += valorFicha(l[i]);
+		}
+	}
+	if (verDoble == true) { // multiplica por 2 el puntaje
+		puntaje = puntaje * 2;
+	}
+	else if (verTriple == true) { // multiplica por 3 el puntaje
+		puntaje = puntaje * 3;
+	}
+	return puntaje;
 }
 int Tablero::valores(int f, int c) {
 	return matrizValores[f-1][c];

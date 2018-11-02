@@ -42,10 +42,10 @@
     <ClInclude Include="Funcionalidad.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Diccionario.h">
+    <ClInclude Include="NodoDiccionario.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Guardar.h">
+    <ClInclude Include="ListaDiccionario.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -80,10 +80,10 @@
     <ClCompile Include="Funcionalidad.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Diccionario.cpp">
+    <ClCompile Include="NodoDiccionario.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Guardar.cpp">
+    <ClCompile Include="ListaDiccionario.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

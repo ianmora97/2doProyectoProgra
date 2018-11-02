@@ -120,7 +120,7 @@ void leerFichero(string nombre) {
 	if (archivo.is_open()) {
 		while (!archivo.eof()) {
 			getline(archivo,texto);
-			cout << texto;
+			cout << texto<<endl;
 		}
 	}
 	else {
@@ -141,9 +141,9 @@ void escribirFichero(string nombre, string texto) {
 }
 void appendFichero(string nombre,string texto) {
 	ofstream archivo;
-	archivo.open(nombre.c_str(), ios::app);
+	archivo.open(nombre.c_str(), ios::out ,ios::app);
 	if (archivo.is_open()) {
-		archivo << texto;
+		archivo << texto << endl;
 	}
 	else {
 		cout << "Error al abrir el archivo!" << endl;
@@ -153,10 +153,24 @@ void appendFichero(string nombre,string texto) {
 void borrarFichero(string nombre) {
 	remove(nombre.c_str());
 }
-bool verificaMatriz(string m[100][100]) {
-	
-	
-	return true;
+void dibujaRectangulo(int x, int y, int l, int a, int c) {
+	color(c);
+	for (int i = x; i < y; i++) { //el ancho
+		gotoxy(i, l); cout << " ";
+		gotoxy(i, a); cout << " ";
+	}
+	for (int i = l; i < a; i++) { //el alto
+		gotoxy(x, i); cout << " ";
+		gotoxy(y, i); cout << " ";
+	}
+	gotoxy(x, l); cout<<" ";
+
+	gotoxy(y, l); cout<<" ";
+
+	gotoxy(x, a); cout<<" ";
+
+	gotoxy(y, a); cout<<" ";
+	color(15);
 }
 string randomFichas() {
 	string ficha;
@@ -206,7 +220,7 @@ void instrucciones2() {
 	cout << endl;
 	cout << "\t\t\t";
 	cout << char(186);
-	cout << "\t\t     Istrucciones del scrabble" << "                  " << char(186) << endl;
+	cout << "\t\t     Instrucciones del Scrabble" << "                  " << char(186) << endl;
 	cout << "\t\t\t" << char(186);
 	cout << " Al iniciar el juego, se debe asignar en forma aleatoria " << "      " << char(186) << endl;
 	cout << "\t\t\t" << char(186);
@@ -282,9 +296,9 @@ void instrucciones3() {
 	cout << endl;
 	cout << "\t\t\t";
 	cout << char(186);
-	cout << "\t\t     Istrucciones del scrabble" << "                  " << char(186) << endl;
+	cout << "\t\t     Instrucciones del scrabble" << "                  " << char(186) << endl;
 	cout << "\t\t\t" << char(186);
-	cout << " si la palabra no se encuentra en el diccionario se dara  " << "     " << char(186) << endl;
+	cout << " Si la palabra no se encuentra en el diccionario se dara  " << "     " << char(186) << endl;
 	cout << "\t\t\t" << char(186);
 	cout << " por no valida. Este diccionario debera ser un archivo." << "        " << char(186) << endl;
 	cout << "\t\t\t" << char(186);
@@ -334,7 +348,7 @@ void instrucciones1() {
 	cout << endl;
 	cout << "\t\t\t";
 	cout << char(186);
-	cout << "\t\t     Istrucciones del scrabble" << "                  " << char(186) << endl;
+	cout << "\t\t     Instrucciones del scrabble" << "                  " << char(186) << endl;
 	cout << "\t\t\t" << char(186);
 	cout << "- De las 100 fichas 98 son letras y 2 dos son fichas en blanco" << " " << char(186) << endl;
 	cout << "\t\t\t" << char(186);
@@ -387,4 +401,7 @@ void instrucciones1() {
 	cin.clear();
 	cin.ignore();
 	cin.get();
+}
+void pause() {
+	gotoxy(70, 38); system("PAUSE");
 }

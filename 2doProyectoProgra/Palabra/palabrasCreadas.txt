@@ -1,0 +1,11 @@
+	 ----------------
+	|Palabras Creadas|
+ 	 ----------------
+Jugador		     Palabra
+  |		       |
+  v		       v
+ IAn                   mo
+ IAn                   ro
+ IAn                   si
+ Moora                   lo
+ Ambar                 ca

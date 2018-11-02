@@ -26,6 +26,7 @@ public:
 	string toString();
 	string toStringLetras();
 	void autoGuardar(ofstream&);
+	void guardarPalabras(ofstream&,string palabra);
 	~Jugador();
 };
 

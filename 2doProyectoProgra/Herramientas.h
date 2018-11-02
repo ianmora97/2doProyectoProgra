@@ -2,6 +2,7 @@
 #define HERRAMIENTAS_H
 #define END '\n'
 #define TAB '\t'
+#define FIN '/'
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -20,7 +21,7 @@ char evaluarChar();
 string toUpper(string);
 int charXColumna(char);
 int valorFicha(string = "letra");
-bool verificaMatriz(string m[100][100]);
+void dibujaRectangulo(int,int,int,int,int); //(Sup.Izq , Sup.Der , Inf.Izq , Inf.Der, color)
 void instrucciones1();
 void instrucciones2();
 void instrucciones3();
@@ -30,6 +31,6 @@ void appendFichero(string = "nombre del archivo",string = "texto");
 string randomFichas();
 string convierteString(char);
 void borrarFichero(string = "nombre del archivo");
-
+void pause();
 
 #endif // !HERRAMIENTAS_H

@@ -80,10 +80,11 @@ void Jugador::cambiarFichas(ListaFichas *lista) {
 		gotoxy(72, 17); opc = evaluarInt(2, 1);
 	} while (opc == 1 && cont < 7);
 }
-void Jugador::autoGuardar(ofstream& estFile) {
-	estFile << nombreJugador << endl;
-	estFile << puntajeJugador << endl;
-	estFile << cantidadDeVictorias << endl;
+void Jugador::autoGuardar(ofstream& archivo) {
+	archivo << "  " << nombreJugador << "               " << puntajeJugador << "             " << cantidadDeVictorias << endl << endl;
+}
+void Jugador::guardarPalabras(ofstream &archivo, string palabra){
+	archivo << " " << nombreJugador << "                 " << palabra << endl;
 }
 Jugador::~Jugador(){
 	listaFichas->~ListaFichas();
