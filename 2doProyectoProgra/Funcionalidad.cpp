@@ -1,6 +1,6 @@
 #include "Funcionalidad.h"
 Funcionalidad::Funcionalidad(){}
-bool Funcionalidad::llenarLista(ListaFichas *l) {
+bool Funcionalidad::llenarLista(ListaFichas *l) { //llena la bolsa principal de 100 fichas leido por un archivo
 	ifstream archivo; //lectura
 	string texto;
 	string nombre("Fichas/fichas.txt");
@@ -20,7 +20,7 @@ bool Funcionalidad::llenarLista(ListaFichas *l) {
 	}
 	archivo.close();
 }
-void Funcionalidad::setJugador(Jugador *j, ListaFichas *l, int jugador) {
+void Funcionalidad::setJugador(Jugador *j, ListaFichas *l, int jugador) { //pasa un jugador por parametro y le asigna un nombre y 7 fichas aleatorias
 	string _letra;
 	string _nombreJugador;
 	Ficha *ficha;
@@ -35,13 +35,13 @@ void Funcionalidad::setJugador(Jugador *j, ListaFichas *l, int jugador) {
 			ficha = new Ficha(_letra,valorFicha(_letra));
 			j->insertarficha(ficha);
 		}
-		else {
+		else { //si el random saco una letra que no esta en la bolsa la vuelve a pedir dandole un i-- al for
 			i--;
 		}
 	}
-	if (jugador == 1) {
+	if (jugador == 1) { //solamente visual para mostrar la cantidad de fichas y las fichas que le toco
 		for (int i = 0; i < 4; i++) {
-			gotoxy(55, 6 + i); color(15); cout << "|";
+			gotoxy(55, 6 + i); color(15); cout << char(179);
 		}
 		gotoxy(56, 6); color(13); cout << "Fichas:";
 		gotoxy(56, 7); color(15); cout << "  " << j->getCanFichas();
@@ -51,7 +51,7 @@ void Funcionalidad::setJugador(Jugador *j, ListaFichas *l, int jugador) {
 	}
 	if (jugador == 2) {
 		for (int i = 0; i < 4; i++) {
-			gotoxy(55, 11 + i); color(15); cout << "|";
+			gotoxy(55, 11 + i); color(15); cout << char(179);
 		}
 		gotoxy(56, 11); color(13); cout << "Fichas:";
 		gotoxy(56, 12); color(15); cout << "  " << j->getCanFichas();
@@ -61,7 +61,7 @@ void Funcionalidad::setJugador(Jugador *j, ListaFichas *l, int jugador) {
 	}
 	if (jugador == 3) {
 		for (int i = 0; i < 4; i++) {
-			gotoxy(55, 16 + i); color(15); cout << "|";
+			gotoxy(55, 16 + i); color(15); cout << char(179);
 		}
 		gotoxy(56, 16); color(13); cout << "Fichas:";
 		gotoxy(56, 17); color(15); cout << "  " << j->getCanFichas();
@@ -71,7 +71,7 @@ void Funcionalidad::setJugador(Jugador *j, ListaFichas *l, int jugador) {
 	}
 	if (jugador == 4) {
 		for (int i = 0; i < 4; i++) {
-			gotoxy(55, 21 + i); color(15); cout << "|";
+			gotoxy(55, 21 + i); color(15); cout << char(179);
 		}
 		gotoxy(56, 21); color(13); cout << "Fichas:";
 		gotoxy(56, 22); color(15); cout << "  " << j->getCanFichas();
@@ -80,7 +80,7 @@ void Funcionalidad::setJugador(Jugador *j, ListaFichas *l, int jugador) {
 		cout << "\n\tFichas -> " << j->toStringLetras();
 	}
 }
-void Funcionalidad::readFile(Diccionario* dic) {
+void Funcionalidad::readFile(Diccionario* dic) { //lee los 4 diccionarios y los inserta en nodos para crear la listaDiccionario 
 	color(15); gotoxy(26, 18); cout << "Leyendo palabras del archivo \"Diccionario.txt\" ...";
 	string w;
 	ifstream file;
@@ -92,8 +92,8 @@ void Funcionalidad::readFile(Diccionario* dic) {
 			getline(file, w, FIN);
 			dic->insertar(w);
 			color(15);
-			gotoxy(46, 19); cout << "Palabra -> "<<w;
-			gotoxy(46, 19); cout << "                                                     ";
+			gotoxy(36, 19); cout << "Palabra -> "<<w;
+			gotoxy(36, 19); cout << "                                                     ";
 		}
 	}
 	else {
@@ -107,8 +107,8 @@ void Funcionalidad::readFile(Diccionario* dic) {
 			getline(file, w, END);
 			dic->insertar(w);
 			color(15);
-			gotoxy(46, 19); cout << "Palabra -> " << w;
-			gotoxy(46, 19); cout << "                                                     ";
+			gotoxy(36, 19); cout << "Palabra -> " << w;
+			gotoxy(36, 19); cout << "                                                     ";
 		}
 	}
 	else {
@@ -122,8 +122,8 @@ void Funcionalidad::readFile(Diccionario* dic) {
 			getline(file, w, END);
 			dic->insertar(w);
 			color(15);
-			gotoxy(46, 19); cout << "Palabra -> "<<w;
-			gotoxy(46, 19); cout << "                                                     ";
+			gotoxy(36, 19); cout << "Palabra -> "<<w;
+			gotoxy(36 19); cout << "                                                     ";
 		}
 	}
 	else {
@@ -138,8 +138,8 @@ void Funcionalidad::readFile(Diccionario* dic) {
 			getline(file, w, END);
 			dic->insertar(w);
 			color(15);
-			gotoxy(46, 19); cout << "Palabra -> " << w;
-			gotoxy(46, 19); cout << "                                                     ";
+			gotoxy(36, 19); cout << "Palabra -> " << w;
+			gotoxy(36, 19); cout << "                                                     ";
 		}
 	}
 	else {
@@ -151,13 +151,13 @@ void Funcionalidad::readFile(Diccionario* dic) {
 	pause();
 	color(15);
 }
-void Funcionalidad::setCantidadJugadores() {
+void Funcionalidad::setCantidadJugadores() { // muestra la min y max cantidad de jugadores que pueden jugaar
 	system("cls");
 	cout << "\n\n";
 	cout << "\tCuantos jugadores desean jugar? ";
 	color(13); cout << "[min -> 2 || max -> 4]"; color(15);
 }
-bool Funcionalidad::meteFichas(Jugador *j, ListaFichas *l, int canFichas){
+bool Funcionalidad::meteFichas(Jugador *j, ListaFichas *l, int canFichas){ //cuando el jugador ingresa la palabra y pierde sus fichas, esta ingresa de nuevo las fichas que utilizo
 	string _letra;
 	Ficha *ficha;
 	int cont = 0;
@@ -177,7 +177,7 @@ bool Funcionalidad::meteFichas(Jugador *j, ListaFichas *l, int canFichas){
 	}
 	return false;
 }
-int Funcionalidad::menu() {
+int Funcionalidad::menu() { //muestra el menu del jugador
 	color(15);
 	gotoxy(72, 7); cout << char(201); for (int i = 0; i < 20; i++) { cout << char(205); } cout << char(187);
 	for (int i = 0; i < 8; i++) { gotoxy(72, 8 + i); cout << char(186); gotoxy(93, 8 + i); cout << char(186); }
@@ -199,7 +199,7 @@ int Funcionalidad::menu() {
 	gotoxy(74, 15); opc = evaluarInt(4, 1);
 	return opc;
 }
-bool Funcionalidad::verificaLetras(Jugador* j,string palabra) {
+bool Funcionalidad::verificaLetras(Jugador* j,string palabra) { // verifica que las letras esten en la lista del jugador
 	int lenPalabra;
 	lenPalabra = palabra.length();
 	palabra = toUpper(palabra);
@@ -218,30 +218,36 @@ bool Funcionalidad::verificaLetras(Jugador* j,string palabra) {
 		return false;
 	}
 }
-bool Funcionalidad::verificaDiccionario(Diccionario* dic,string palabra) {
+bool Funcionalidad::verificaDiccionario(Diccionario* dic,string palabra) { //verifica que la palabra este en el diccionario
 	palabra = toUpper(palabra);
 	if (dic->encontrada(palabra)) {
 		return true;
 	}
 	return false;
 }
-bool Funcionalidad::ingresarPalabra(Tablero* t, ListaFichas* bolsa, ListaFichas *listaTablero, Jugador* j, Diccionario *dic){ //coordenadas de inicio
-	int x[7];
-	int y[7];
-	string vec[7];
-	int cant = 0;
-	string palabra;
-	Ficha *ficha;
-	ofstream archivo;
-	string letra; //guarda el char convertido a string;
-	dibujaRectangulo(10, 30, 30, 35, 51);
+bool Funcionalidad::ingresarPalabra(Tablero* t, ListaFichas* bolsa, ListaFichas *listaTablero, Jugador* j, Diccionario *dic){ //al ingresar una palabra por primera vez
+	cuadroColoresIns();
+	clearRC();
+	int x[7]; //se crean 1 vector donde se van a guardar las filas ingresadas por el jugador
+	int y[7]; //se crean 1 vector donde se van a guardar las columnas ingresadas por el jugador
+	string vec[7]; //este vector guarda las letras ingresadas por el jugador
+	int cant = 0; //la cantidad de fichas y este va a ser el que mueva el vector
+	string palabra; //la palabra de inicio
+	Ficha *ficha; //un objeto ficha para ingresar una ficha al tablero
+	ofstream archivo; //un archivo de salida para guardar las palabras hechas por el jugador
+	string letra; //las letras que seran ingresadas por el jugador
+	dibujaRectangulo(10, 30, 30, 35, 15); //solo dibuja un rectangulo para ver las coordenadas y las letras
 	do {
-		gotoxy(72, 7); cout << "Digite la palabra > "; getline(cin, palabra,END);
-		if (!verificaDiccionario(dic,palabra)) {
-			gotoxy(72, 9);  cout << "La palabra no esta en el diccionario";
+		gotoxy(72, 9); cout << "Digite la palabra > "; getline(cin, palabra,END);
+		if (!verificaDiccionario(dic,palabra) && palabra.length() == 0) {
+			gotoxy(72, 10);  cout << "La palabra no esta en el diccionario";
+			Sleep(500);
+			clearRC();
 		}
-	} while (!(verificaDiccionario(dic, palabra)));
-	gotoxy(72, 9); cout << "Palabra en el dicccionario!";
+	} while (!(verificaDiccionario(dic, palabra)) && palabra.length() == 0);
+	gotoxy(72, 11); cout << "Palabra en el dicccionario!";
+	Sleep(500);
+	clearRC();
 	int n = palabra.length();
 	int f = 0;
 	int c = 0;
@@ -254,36 +260,33 @@ bool Funcionalidad::ingresarPalabra(Tablero* t, ListaFichas* bolsa, ListaFichas 
 		}
 		cant = 0;
 		for (int i = 0; i < n; i++) {
-			gotoxy(72, 13); cout << "                                       ";
-			gotoxy(72, 15); cout << "                                       ";
-			gotoxy(72, 16); cout << "                                       ";
-			gotoxy(72, 17); cout << "                                       ";
+			clearRC();
 			do {
 				cin.clear();
 				cin.ignore();
-				gotoxy(72, 13); cout << "Digite la letra " << i + 1 << "  > "; getline(cin, letra, END);
+				gotoxy(72, 13); cout << "Digite la letra " << i + 1 << " > "; color(13); getline(cin, letra, END);
 				if (letra == "-") {
 					letra = cambiaComodin();
 				}
 				letra = toUpper(letra);
 			} while (!verificaLetras(j, letra));
 			gotoxy(14, 33); color(13); cout << letra; color(15);
-			gotoxy(72, 15); cout << "Digite la Fila y la Columna:";
-			gotoxy(72, 16); cout << "Fila(1,2,3...)    "; f = evaluarInt(15, 1);
+			gotoxy(72, 16); cout << "Fila(1,2,3...)    "; color(14); f = evaluarInt(15, 1);
 			gotoxy(20, 33); color(14); cout << f; color(15);
-			gotoxy(72, 17); cout << "Columna(A,B,C...) "; change = (evaluarChar());
+			gotoxy(72, 17); cout << "Columna(A,B,C...) "; color(11); change = (evaluarChar());
 			c = charXColumna(change);
 			gotoxy(26, 33); color(11); cout << toUpper(convierteString(change)); color(15);
 			x[cant] = f;
 			y[cant] = c;
-			if ((f - 1) == 7 && c == 7) {
-				checkPosition = true;
+			if ((f - 1) == 7 && c == 7) {							//esto verifica que alguna de las letras ingresadas
+				checkPosition = true;								//alguna este en el centro
 			}
 			vec[cant] = letra;
 			cant++;
 		}
 		if (checkPosition == false) {
-			gotoxy(72,19); cout << "Debe ingresar al menos una ficha que pase por el centro Coords: (8,H)";
+			gotoxy(72, 19); cout << "Debe ingresar al menos una ficha "; 
+			gotoxy(72, 20); cout << "que pase por el centro Coords: (8,H)";
 		}
 	} while (checkPosition == false);
 	if (checkPosition == true) {
@@ -299,8 +302,16 @@ bool Funcionalidad::ingresarPalabra(Tablero* t, ListaFichas* bolsa, ListaFichas 
 		for (int i = 0; i < 14; i++) {
 			gotoxy(72, 7+i); cout << "                                       ";
 		}
+		system("cls");
+		j->turnoJugador();
+		t->imprimeTablero();
+		j->getLista()->getLetras();
 		gotoxy(72, 10); cout << "Palabra ingresada correctamente!";
 		gotoxy(72, 11); cout << palabra;
+		int p = 0;
+		for (int i = 0; i < cant; i++)
+			p += valorFicha(vec[i]);
+		gotoxy(72, 12); cout << "Puntaje objetenido: " << p;
 		archivo.open("Palabra/palabrasCreadas.txt", ios::app);
 		if (archivo.is_open()) {
 			j->guardarPalabras(archivo,palabra);
@@ -313,6 +324,8 @@ bool Funcionalidad::ingresarPalabra(Tablero* t, ListaFichas* bolsa, ListaFichas 
 	
 }
 bool Funcionalidad::ingresarFichaXFicha(Tablero * t, ListaFichas *bolsa, ListaFichas* listaTablero, Jugador *j, Diccionario *dic) {
+	cuadroColoresIns();
+	clearRC();
 	int x[7];
 	int y[7];
 	string vec[7];
@@ -323,36 +336,36 @@ bool Funcionalidad::ingresarFichaXFicha(Tablero * t, ListaFichas *bolsa, ListaFi
 	dibujaRectangulo(10, 30, 30, 35, 51);
 	string letra; 
 	do {
-		gotoxy(72, 7); cout << "Digite la palabra > "; getline(cin, palabra);
-		if (!verificaDiccionario(dic, palabra)) {
-			gotoxy(72, 9);  cout << "La palabra no esta en el diccionario";
+		gotoxy(72, 9); cout << "Digite la palabra > "; getline(cin, palabra);
+		if (!verificaDiccionario(dic, palabra) && palabra.length() == 0) {
+			gotoxy(72, 10);  cout << "La palabra no esta en el diccionario";
+			Sleep(500);
+			clearRC();
 		}
-	} while (!(verificaDiccionario(dic, palabra)));
-	gotoxy(72, 10); cout << "Palabra en el dicccionario!";
-	gotoxy(72, 9); cout << "Cuantas fichas utilizara? > ";
+	} while (!(verificaDiccionario(dic, palabra)) && palabra.length() == 0);
+	gotoxy(72, 11); cout << "Palabra en el dicccionario!";
+	Sleep(500);
+	clearRC();
+	gotoxy(72, 11); cout << "Cuantas fichas utilizara? > ";
 	int n = evaluarInt(7, 1);
 	int f = 0;
 	int c = 0;
 	char cambia;
 	for (int i = 0; i < n; i++) {
-		gotoxy(72, 13); cout << "                                       ";
-		gotoxy(72, 15); cout << "                                       ";
-		gotoxy(72, 16); cout << "                                       ";
-		gotoxy(72, 17); cout << "                                       ";
+		clearRC();
 		do {
-			
-			gotoxy(72, 13); cout << "Digite la letra " << i + 1 << "  > "; getline(cin, letra, END);
+			cin.clear();
+			cin.ignore();
+			gotoxy(72, 13); cout << "Digite la letra " << i + 1 << "   > "; color(13); getline(cin, letra, END);
 			if (letra == "-") {
 				letra = cambiaComodin();
 			}
 			letra = toUpper(letra);
-			gotoxy(102, 13); cout << letra;
 		} while (!verificaLetras(j,letra));
 		gotoxy(14, 33); color(13); cout << letra; color(15);
-		gotoxy(72, 15); cout << "Digite la Fila y la Columna:";
-		gotoxy(72, 16); cout << "Fila(1,2,3...) "; f = evaluarInt(15, 1);
+		gotoxy(72, 16); cout << "Fila(1,2,3...)    "; color(14); f = evaluarInt(15, 1);
 		gotoxy(20, 33); color(14); cout << f; color(15);
-		gotoxy(72, 17); cout << "Columna(A,B,C...) "; cambia = evaluarChar();
+		gotoxy(72, 17); cout << "Columna(A,B,C...) "; color(11); cambia = evaluarChar();
 		c = charXColumna(cambia);
 		gotoxy(26, 33); color(11); cout << toUpper(convierteString(cambia)); color(15);
 		x[cant] = f;
@@ -360,8 +373,8 @@ bool Funcionalidad::ingresarFichaXFicha(Tablero * t, ListaFichas *bolsa, ListaFi
 		vec[cant] = letra;
 		cant++;
 	}
-	bool checkPosition = false;
-	for (int j = 0; j < cant; j++) {
+	bool checkPosition = false;					//esto verifica que alguna de las letras esten tocando
+	for (int j = 0; j < cant; j++) {			//alguna de las letras que ya estan en el tablero
 		if (t->verificarCruz(x[j], y[j])) {
 			checkPosition = true;
 			break;
@@ -380,8 +393,16 @@ bool Funcionalidad::ingresarFichaXFicha(Tablero * t, ListaFichas *bolsa, ListaFi
 		for (int i = 0; i < 14; i++) {
 			gotoxy(72, 7 + i); cout << "                                       ";
 		}
+		system("cls");
+		j->turnoJugador();
+		t->imprimeTablero();
+		j->getLista()->getLetras();
 		gotoxy(72, 10); cout << "Palabra ingresada correctamente!";
 		gotoxy(72, 11); cout << palabra;
+		int p = 0;
+		for (int i = 0; i < cant; i++)
+			p += valorFicha(vec[i]);
+		gotoxy(72, 12); cout << "Puntaje objetenido: "<<p;
 		archivo.open("Palabra/palabrasCreadas.txt", ios::app);
 		if (archivo.is_open()) {
 			j->guardarPalabras(archivo, palabra);
@@ -392,7 +413,7 @@ bool Funcionalidad::ingresarFichaXFicha(Tablero * t, ListaFichas *bolsa, ListaFi
 	}
 	return false;
 }
-string Funcionalidad::cambiaComodin() {
+string Funcionalidad::cambiaComodin() { //cambia el comodin
 	for (int i = 0; i < 14; i++) {
 		gotoxy(72, 7 + i); cout << "                                       ";
 	}
@@ -424,7 +445,6 @@ bool Funcionalidad::verificaCampoEMatriz(Tablero *tablero) {
 	return true;
 }
 void Funcionalidad::guardarPuntaje(Jugador* j){
-	system("cls");
 	ofstream archivo;
 	cout << char(201);
 	for (int i = 0; i < 40; i++) {
@@ -469,7 +489,7 @@ void Funcionalidad::leerPuntaje(){
 		cout << "Error al abrir el archivo!" << endl;
 	}
 	entrada.close();
-	system("PAUSE");
+	pause();
 }
 void Funcionalidad::ganador(Jugador * j1, Jugador * j2, Jugador * j3, Jugador * j4){
 	Jugador **a = new Jugador*[4];
@@ -478,9 +498,32 @@ void Funcionalidad::ganador(Jugador * j1, Jugador * j2, Jugador * j3, Jugador * 
 	a[2] = j3;
 	a[3] = j4;
 	Jugador *mayor = a[0];
-	for (int i = 0; i < 3; i++) {
-		if (a[i+1] >= mayor) {
-			mayor = a[i+1];
+	if (a[0]->getPuntaje() > a[1]->getPuntaje()) {
+		if (a[0]->getPuntaje() > a[2]->getPuntaje()) {
+			if (a[0]->getPuntaje() > a[3]->getPuntaje()) {
+				mayor = a[0];
+			}
+		}
+	}
+	if (a[1]->getPuntaje() > a[0]->getPuntaje()) {
+		if (a[1]->getPuntaje() > a[2]->getPuntaje()) {
+			if (a[1]->getPuntaje() > a[3]->getPuntaje()) {
+				mayor = a[1];
+			}
+		}
+	}
+	if (a[2]->getPuntaje() > a[0]->getPuntaje()) {
+		if (a[2]->getPuntaje() > a[1]->getPuntaje()) {
+			if (a[2]->getPuntaje() > a[3]->getPuntaje()) {
+				mayor = a[2];
+			}
+		}
+	}
+	if (a[3]->getPuntaje() > a[0]->getPuntaje()) {
+		if (a[3]->getPuntaje() > a[1]->getPuntaje()) {
+			if (a[3]->getPuntaje() > a[2]->getPuntaje()) {
+				mayor = a[3];
+			}
 		}
 	}
 	cout << "El ganador es: " << mayor->getNombre();

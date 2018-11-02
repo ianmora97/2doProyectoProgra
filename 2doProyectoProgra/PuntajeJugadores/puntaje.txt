@@ -4,11 +4,11 @@
 Nombre Jugador    Puntaje   Cantidad De Victorias
       |              |               |
       v              v               v
-  IAn            4          1
+  Ian                4               1
 
-  IAn            4          1
+  Ambar               8              1
 
-  IAn            0          1
+  IN               0             1
 
-  Ambar               8             1
+  ian               0             1
 

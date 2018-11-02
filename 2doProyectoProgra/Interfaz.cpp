@@ -7,6 +7,7 @@ int Interfaz::menu(){
 }
 void Interfaz::imprime(){
 	color(15);
+	cout << endl << endl << endl << endl << endl << endl;
 	cout << "\t\t\t" << char(201);
 	for (int i = 0; i < 46; i++) { cout << char(205); }
 	cout << char(187);
@@ -65,37 +66,37 @@ void Interfaz::imprime(){
 	for (int i = 0; i < 46; i++) { cout << char(205); } //imprime una linea de =
 	cout << char(188) << endl;
 	for (int i = 0; i < 11; i++) {
-		gotoxy(71, 7 + i); cout << char(186);
+		gotoxy(71, 13 + i); cout << char(186);
 	}
-	gotoxy(71, 19); cout << char(186);
-	gotoxy(71, 20); cout << char(186);
-	gotoxy(71, 21); cout << char(186);
+	gotoxy(71, 19+6); cout << char(186);
+	gotoxy(71, 20+6); cout << char(186);
+	gotoxy(71, 21+6); cout << char(186);
 }
 int Interfaz::validar(){
 	int opc;
 	bool c = true;
 	while (c) {
-		gotoxy(35, 20); cout << "Opcion > ";
+		gotoxy(35, 26); cout << "Opcion > ";
 		color(13);
 		if (!(cin >> opc)) {
 			color(15);
-			gotoxy(44, 20); cout << "                           " << char(186) << "            "; 
+			gotoxy(44, 26); cout << "                           " << char(186) << "            "; 
 			color(12);
-			gotoxy(55, 20); cout << "Error!";
+			gotoxy(55, 26); cout << "Error!";
 			color(15);
 			Sleep(700);
-			gotoxy(44, 20); cout << "                           "; 
+			gotoxy(44, 26); cout << "                           "; 
 			cin.clear();
 			cin.ignore(1024, '\n');
 		}
 		else if (opc < 0 || opc >4) { 
 			color(15);
-			gotoxy(44, 20); cout << "                           " << char(186) << "            ";
+			gotoxy(44, 26); cout << "                           " << char(186) << "            ";
 			color(12);
-			gotoxy(55, 20); cout << "Error!";
+			gotoxy(55, 26); cout << "Error!";
 			color(15);
 			Sleep(700);
-			gotoxy(44, 20); cout << "                           ";
+			gotoxy(44, 26); cout << "                           ";
 			cin.clear();
 			cin.ignore(1024, '\n');
 		}

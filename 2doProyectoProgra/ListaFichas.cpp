@@ -102,22 +102,22 @@ bool ListaFichas::limpiarLista() {
 void ListaFichas::getLetras() {
 	string letra;
 	color(34);
-	gotoxy(9, 23); cout << "                                      ";
-	gotoxy(9, 24); cout << "                                      ";
-	gotoxy(9, 25); cout << "                                      ";
-	gotoxy(9, 26); cout << "               "; color(47); cout << "Scrabble"; color(34);cout<<"               ";
+	gotoxy(9, 26); cout << "                                      ";
+	gotoxy(9, 27); cout << "                                      ";
+	gotoxy(9, 28); cout << "                                      ";
+	gotoxy(9, 29); cout << "               "; color(47); cout << "Scrabble"; color(34);cout<<"               ";
 	color(15);
 	actual = primero;
 	int cont = 0;
 	while (actual != NULL) {
 		letra = actual->getFicha()->getLetra();
 		if (letra == "CH" || letra == "LL" || letra == "RR") {
-			gotoxy(11 + (cont * 5), 24); color(243); cout << " " << actual->getFicha()->getLetra() << " ";
-			gotoxy(11 + (cont * 5), 25); color(243); cout << " " << actual->getFicha()->getValor() << "  ";
+			gotoxy(11 + (cont * 5), 27); color(243); cout << " " << actual->getFicha()->getLetra() << " ";
+			gotoxy(11 + (cont * 5), 28); color(243); cout << " " << actual->getFicha()->getValor() << "  ";
 		}
 		else {
-			gotoxy(11 + (cont * 5), 24); color(243); cout << " " << actual->getFicha()->getLetra() << "  ";
-			gotoxy(11 + (cont * 5), 25); color(243); cout << " " << actual->getFicha()->getValor() << "  ";
+			gotoxy(11 + (cont * 5), 27); color(243); cout << " " << actual->getFicha()->getLetra() << "  ";
+			gotoxy(11 + (cont * 5), 28); color(243); cout << " " << actual->getFicha()->getValor() << "  ";
 		}
 		
 		actual = actual->getSig();

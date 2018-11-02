@@ -12,6 +12,7 @@ public:
 	bool verificarCruz(int i, int j);
 	int valores(int f,int c);
 	int bono(int f[],int c[], string l[], int cant);
+	void imprimeTableroValores();
 	string getTablero();
 	~Tablero();
 private:

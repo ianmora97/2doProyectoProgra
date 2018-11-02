@@ -19,10 +19,11 @@ bool Jugador::sacarFicha(string l) {
 	return false;
 }
 void Jugador::turnoJugador() {
-	cout << "\n\tTurno de:\t--->\t";
-	color(15); gotoxy(20, 1); cout << "|"; color(13); cout << " Nombre del Jugador  : "; color(15); cout << nombreJugador;
-	color(15); gotoxy(20, 2); cout << "|"; color(13); cout << " Puntaje del Jugador : "; color(15); cout << puntajeJugador;
-	color(15); gotoxy(20, 3); cout << "|"; color(13); cout << " Cantidad de Fichas  : "; color(15); cout << listaFichas->getCantidadNodos();
+	//cout << "\n\tTurno de:";
+	dibujaRectangulo(8,50,1,6,15);
+	color(15); gotoxy(9, 2); color(13); cout << " Turno del Jugador   : "; color(15); cout << nombreJugador;
+	color(15); gotoxy(9, 3); color(13); cout << " Puntaje del Jugador : "; color(15); cout << puntajeJugador;
+	color(15); gotoxy(9, 4); color(13); cout << " Cantidad de Fichas  : "; color(15); cout << listaFichas->getCantidadNodos();
 }
 string Jugador::toString() {
 	stringstream s;
@@ -52,11 +53,11 @@ void Jugador::cambiarFichas(ListaFichas *lista) {
 		gotoxy(72, 15); cout << "                                          ";
 		gotoxy(72, 16); cout << "                                          ";
 		gotoxy(72, 17); cout << "                                          ";
-		gotoxy(72, 11); cout << "Ingrese la letra que quiera cambiar > ";
+		gotoxy(72, 11); cout << "Que letra desea cambiar? > ";
 		color(13); getline(cin, letraSacada, END);
 		letraSacada = toUpper(letraSacada);
 		if (listaFichas->sacarFicha(letraSacada)) { //saco la letra de la lista del jugador
-			while (ciclo == true) {
+			for (int i = 0; i < 1; i++) {
 				letra = randomFichas();
 				if ((lista->sacarFicha(letra))) { //saco una ficha de la bolsa de fichas
 					ficha = new Ficha(letra, valorFicha(letra));
@@ -67,7 +68,7 @@ void Jugador::cambiarFichas(ListaFichas *lista) {
 					ciclo = false;
 				}
 				else { //la letra no esta en la lista
-					ciclo = true;
+					i--;
 				}
 			}
 		}

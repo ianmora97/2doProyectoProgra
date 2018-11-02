@@ -22,6 +22,9 @@ string toUpper(string);
 int charXColumna(char);
 int valorFicha(string = "letra");
 void dibujaRectangulo(int,int,int,int,int); //(Sup.Izq , Sup.Der , Inf.Izq , Inf.Der, color)
+void clearRC();
+void clearLC();
+void cuadroColoresIns();
 void instrucciones1();
 void instrucciones2();
 void instrucciones3();

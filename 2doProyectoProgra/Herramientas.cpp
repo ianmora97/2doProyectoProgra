@@ -153,23 +153,40 @@ void appendFichero(string nombre,string texto) {
 void borrarFichero(string nombre) {
 	remove(nombre.c_str());
 }
-void dibujaRectangulo(int x, int y, int l, int a, int c) {
+void dibujaRectangulo(int x, int y, int l, int a, int c) { //x de donde comienza, y donde termina || l de donde comienza , a de donde termina
 	color(c);
 	for (int i = x; i < y; i++) { //el ancho
-		gotoxy(i, l); cout << " ";
-		gotoxy(i, a); cout << " ";
+		gotoxy(i, l); cout << char(205);
+		gotoxy(i, a); cout << char(205);
 	}
 	for (int i = l; i < a; i++) { //el alto
-		gotoxy(x, i); cout << " ";
-		gotoxy(y, i); cout << " ";
+		gotoxy(x, i); cout << char(186);
+		gotoxy(y, i); cout << char(186);
 	}
-	gotoxy(x, l); cout<<" ";
+	gotoxy(x, l); cout<< char(201); //esquina superior izquierda
 
-	gotoxy(y, l); cout<<" ";
+	gotoxy(y, l); cout<< char(187); //esquina superior derecha
 
-	gotoxy(x, a); cout<<" ";
+	gotoxy(x, a); cout<< char(200); //esquina inferior izquierda
 
-	gotoxy(y, a); cout<<" ";
+	gotoxy(y, a); cout<< char(188); //esquina inferior derecha
+	color(15);
+}
+void clearRC(){
+	for (int i = 0; i < 30; i++) {
+		gotoxy(72, 7 + i); cout << "                                ";
+	}
+}
+void clearLC(){
+	for (int i = 0; i < 30; i++)
+		gotoxy(72, 7 + i);  cout << "                                ";
+}
+void cuadroColoresIns() {
+	dibujaRectangulo(71,107,1,6,15);
+	gotoxy(72, 2); color(12); cout << "Rojo    : "; color(15); cout << "Triple de Palabra -> 3P";
+	gotoxy(72, 3); color(9);  cout << "Azul    : "; color(15); cout << "Triple de Letra   -> 3L";
+	gotoxy(72, 4); color(11); cout << "Celeste : "; color(15); cout << "Doble de letra    -> 2L";
+	gotoxy(72, 5); color(13); cout << "Rosado  : "; color(15); cout << "Doble de palabra  -> 2P";
 	color(15);
 }
 string randomFichas() {

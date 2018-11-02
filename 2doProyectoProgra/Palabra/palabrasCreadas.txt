@@ -4,8 +4,6 @@
 Jugador		     Palabra
   |		       |
   v		       v
- IAn                   mo
- IAn                   ro
- IAn                   si
- Moora                   lo
+ Ian                   si
  Ambar                 ca
+
